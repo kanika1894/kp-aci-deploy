@@ -34,7 +34,7 @@ jobs:
           resource-group: kptestrg101
 
           # The DNS Name Label for Container with Public IP
-          dns-name-label: url-for-container
+          dns-name-label: kp-url-for-container
 
           # Specify the fully qualified container image name. For example, "myregistry.azurecr.io/nginx:latest" or "python:3.7.2-alpine/"
           image: nginx
