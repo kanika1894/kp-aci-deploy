@@ -42,8 +42,7 @@ jobs:
           location: 'centralus'
 
           # Name of the Container Group Instance
-          name: Linux
-          # The OS type of the Containers. Accepted Values are  { Linux, Windows }
+          name: name-of-instance
 
 
 
