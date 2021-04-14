@@ -42,7 +42,7 @@ jobs:
           location: 'centralus'
 
           # Name of the Container Group Instance
-          name: name-of-instance
+          name: kp-name-of-instance
 
 
 
