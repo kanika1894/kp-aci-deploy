@@ -33,9 +33,9 @@ jobs:
           sections:
           - title: 'Pull Requests'
             widgets:
-            - type: 'table'
+            - type: 'number'
               title: 'New Pull Requests (This Week)'
-              issue_query: 'repo:libgit2/libgit2 is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
+              issue_query: 'repo:libgit2/libgit2 is:open is:issue created:>{{ date("-365 days") }}'
         token: ${{ github.token }}
 
     - name: 'print output'
