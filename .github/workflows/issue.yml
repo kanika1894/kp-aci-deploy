@@ -22,13 +22,9 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v2
-    - name: Check out GitHub Pages branch
-      uses: actions/checkout@v2
-      with:
-        ref: 'gh-pages'
-        path: 'out'
 
     - name: 'Generate Dashboard'
+      id: dashboard
       uses: ethomson/issue-dashboard@v1
       with:
         config: |
@@ -43,12 +39,9 @@ jobs:
               title: 'New Pull Requests (This Week)'
               issue_query: 'repo:libgit2/libgit2 is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
         token: ${{ github.token }}
+        run: cat < out/dashboard.html
 
-    - name: Publish Documentation
-      run: |
-        git add .
-        git config user.name 'Dashboard User'
-        git config user.email 'nobody@nowhere'
-        git commit -m 'Documentation update' --allow-empty
-        git push origin gh-pages
-      working-directory: out
+    - name: 'print output'
+      run: cat < out/dashboard.html
+    - name: 'printing output'
+      run: cat < steps.dashboard.output.filename
