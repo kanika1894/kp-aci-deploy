@@ -42,5 +42,26 @@ jobs:
 
     - name: 'print output'
       run: cat < dashboard.html
-    - name: 'printing output'
-      run: cat < steps.dashboard.output.filename
+
+    - name: create
+      uses: "finnp/create-file-action@master"
+      env:
+        FILE_NAME: "dir/fileName.html"
+        FILE_DATA: "dashboard.html"
+        
+    - name: Create A File
+    # You may pin to the exact commit or the version.
+    # uses: 1arp/create-a-file-action@ee80edaa4741d9997dbe053e052329d4070c020c
+      uses: 1arp/create-a-file-action@0.2
+      with:
+        file: file2.html
+        # The content of the file
+        content: |
+            run cat < dashboard.html
+            
+    
+    - name: Copy 
+      run: |
+         cp dashboard.html $GITHUB_WORKSPACE/destination.html
+         echo $GITHUB_WORKSPACE/destination.html
+
