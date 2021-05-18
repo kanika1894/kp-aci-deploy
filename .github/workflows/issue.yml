@@ -41,6 +41,6 @@ jobs:
         token: ${{ github.token }}
 
     - name: 'print output'
-      run: cat < out/dashboard.html
+      run: cat < dashboard.html
     - name: 'printing output'
       run: cat < steps.dashboard.output.filename
