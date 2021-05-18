@@ -41,25 +41,23 @@ jobs:
     - name: 'print output'
       run: cat < dashboard.html
 
-#     - name: create
-#       uses: "finnp/create-file-action@master"
-#       env:
-#         FILE_NAME: "dir/fileName.html"
-#         FILE_DATA: "dashboard.html"
-        
-    - name: Create A File
-    # You may pin to the exact commit or the version.
-    # uses: 1arp/create-a-file-action@ee80edaa4741d9997dbe053e052329d4070c020c
-      uses: 1arp/create-a-file-action@0.2
-      with:
-        file: file2.html
-        # The content of the file
-        content: |
-            run cat < dashboard.html
-            
-    
-    - name: Copy 
+    - name: Commit files
+      id: commit
       run: |
-         cp dashboard.html $GITHUB_WORKSPACE/destination.html
-         echo $GITHUB_WORKSPACE/destination.html
+        git config --local user.email "kanika1894@github.com"
+        git config --local user.name "kanika1894"
+        git add --all
+        if [-z "$(git status --porcelain)"]; then
+           echo "::set-output name=push::false"
+        else
+           git commit -m "Add changes" -a
+           echo "::set-output name=push::true"
+        fi
+      shell: bash
+ 
+    - name: Push changes
+      if: steps.commit.outputs.push == 'true'
+      uses: ad-m/github-push-action@master
+      with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
 
