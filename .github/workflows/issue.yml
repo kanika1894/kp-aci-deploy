@@ -31,7 +31,7 @@ jobs:
           title: 'Dashboard'
           output:
             format: html
-            filename: 'out/dashboard.html'
+            filename: 'dashboard.html'
           sections:
           - title: 'Pull Requests'
             widgets:
