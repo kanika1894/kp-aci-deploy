@@ -19,32 +19,36 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    - name: Check out repository
+      uses: actions/checkout@v2
+    - name: Check out GitHub Pages branch
+      uses: actions/checkout@v2
+      with:
+        ref: 'gh-pages'
+        path: 'out'
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    - name: 'Generate Dashboard'
+      uses: ethomson/issue-dashboard@v1
+      with:
+        config: |
+          title: 'Dashboard'
+          output:
+            format: html
+            filename: 'out/dashboard.html'
+          sections:
+          - title: 'Pull Requests'
+            widgets:
+            - type: 'table'
+              title: 'New Pull Requests (This Week)'
+              issue_query: 'repo:libgit2/libgit2 is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
+        token: ${{ github.token }}
 
-      - name: Issue Dashboard
-        # You may pin to the exact commit or the version.
-        # uses: ethomson/issue-dashboard@40be07e6acb728fa9bc4758cd17bbee48a322ed6
-        uses: ethomson/issue-dashboard@v1.0.2
-        with:
-            config: |
-              title: 'test Dashboard'
-              output:
-                format: html
-                filename: 'testing-dashboard.html'
-              sections:
-              - title: 'Pull Requests'
-                widgets:
-                - type: 'table'
-                  title: 'New Pull Requests (This Week)'
-                  issue_query: 'repo:libgit2/libgit2 is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
-            token: ${{ github.token }}
-        # The configuration for the dashboards.
-     
+    - name: Publish Documentation
+      run: |
+        git add .
+        git config user.name 'Dashboard User'
+        git config user.email 'nobody@nowhere'
+        git commit -m 'Documentation update' --allow-empty
+        git push origin gh-pages
+      working-directory: out
