@@ -34,8 +34,11 @@ jobs:
           - title: 'Pull Requests'
             widgets:
             - type: 'number'
-              title: 'New Pull Requests (This Week)'
+              title: 'ligbit'
               issue_query: 'repo:libgit2/libgit2 is:open is:issue created:>{{ date("-365 days") }}'
+            - type: 'number'
+            title: 'Az login'
+            issue_query: 'repo:Azure/login is:open is:issue created:>{{ date("-365 days") }}'
         token: ${{ github.token }}
 
     - name: 'print output'
