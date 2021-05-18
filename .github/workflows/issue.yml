@@ -39,7 +39,6 @@ jobs:
               title: 'New Pull Requests (This Week)'
               issue_query: 'repo:libgit2/libgit2 is:open is:issue created:>{{ date("-7 days") }} sort:created-asc'
         token: ${{ github.token }}
-        run: cat < out/dashboard.html
 
     - name: 'print output'
       run: cat < out/dashboard.html
