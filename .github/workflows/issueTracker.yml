@@ -57,7 +57,21 @@ jobs:
                 const title = 'total issues' 
                 const color = (count > 10) ? 'red' : 'green' 
                 return { value: count, title: title, color: color }
-           
+            - type: 'table'
+              title: 'az login label-wise'
+              headers:
+              - 'label'
+              - 'number of issues'
+              elements:
+              - - value: 'need-to-triage'
+                  color: 'yellow'
+                - issue_query: 'repo:Azure/login is:open is:issue label:need-to-triage created:>{{ date("-365 days") }}'
+                  color: 'yellow'
+              - - value: 'enhancement'
+                  color: 'blue'
+                - issue_query: 'repo:Azure/login is:open is:issue label:enhancement created:>{{ date("-365 days") }}'
+                  color: 'yellow'
+                  
         token: ${{ github.token }}
 
     - name: Commit files
