@@ -54,11 +54,11 @@ jobs:
                     const color = (count > 0) ? 'yellow' : 'green' 
                     return { value: count, color: color }
                     
-              - - value: 'Stale PRs'
+             - - value: 'Stale PRs'
                 - script: | 
                     const repo1 = 'Azure/login' 
                     const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open created:<${date('90 day')`}
+                    { q: `repo:${repo1} is:pr is:open label:stale`}
                     ) 
                     const count = results.data.total_count 
                     const color = (count > 0) ? 'red' : 'green' 
