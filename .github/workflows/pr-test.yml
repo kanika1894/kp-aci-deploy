@@ -29,7 +29,7 @@ jobs:
           - title: 'PRs'
             widgets:
             - type: 'table'
-              title: 'az login'
+              title: 'Az login'
               headers:
               - 'PR category'
               - 'Count'
