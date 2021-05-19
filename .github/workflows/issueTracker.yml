@@ -55,7 +55,6 @@ jobs:
                 const title = 'total issues' 
                 const color = (count > 10) ? 'red' : 'green' 
                 return { value: count, title: title, color: color }
-          sections:
           - title: 'label-wise'
             widgets:
             - type: 'table'
