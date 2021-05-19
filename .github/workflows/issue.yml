@@ -63,8 +63,9 @@ jobs:
     - name: Commit files
       id: commit
       run: |
-        git config --local user.email "balaga-gayatri@github.com"
-        git config --local user.name "balaga-gayatri"
+        git checkout gh-pages
+        git config --local user.email "kanika1894@github.com"
+        git config --local user.name "kanika1894"
         git add --all
         if [-z "$(git status --porcelain)"]; then
            echo "::set-output name=push::false"
