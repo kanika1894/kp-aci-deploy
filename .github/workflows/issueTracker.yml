@@ -88,7 +88,7 @@ jobs:
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:issue is:open label:under-investigation created:>${date('-365 day')}`}
                     )
-                    return { value: results.data?results.data.total_count:0  ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
+                    return { value: (results.data) ? results.data.total_count : 0  ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
                 - script: |
                     const repo1 = 'Azure/login'
                     const results = await github.search.issuesAndPullRequests(
@@ -124,7 +124,7 @@ jobs:
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:issue is:open label:waiting-for-customer created:>${date('-365 day')}`}
                     )
-                    return { value: results.data.total_count? ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Awaiting-for-customer'}
+                    return { value: results.data.total_count , url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Awaiting-for-customer'}
                 - script: |
                     const repo1 = 'Azure/login'
                     const results = await github.search.issuesAndPullRequests(
