@@ -88,7 +88,7 @@ jobs:
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:issue is:open label:under-investigation created:>${date('-365 day')}`}
                     )
-                    console.log(Object.entries(results).length)
+                    console.log(Object.keys(results).length)
                     if(Object.entries(results).length === 0){
                       return { value: '0', url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
                     }
