@@ -1,0 +1,68 @@
+# This is a basic workflow to help you get started with Actions
+
+name: issues
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ gh-pages ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: 'Generate Dashboard'
+      id: dashboard
+      uses: ethomson/issue-dashboard@v1
+      with:
+        config: |
+          title: 'Dashboard'
+          output:
+            format: html
+            filename: 'index.html'
+          sections:
+          - title: 'Pull Requests'
+            widgets:
+            - type: 'number'
+              title: 'Open Issues in libgit2'
+              issue_query: 'repo:libgit2/libgit2 is:open is:issue created:>{{ date("-365 days") }} '
+              color: red
+            - type: 'number'
+              title: 'closed Issues in libgit2'
+              issue_query: 'repo:libgit2/libgit2 is:closed is:issue created:>{{ date("-365 days") }} '
+              color: green
+        token: ${{ github.token }}
+
+    - name: 'print output'
+      run: cat < index.html
+
+    - name: Commit files
+      id: commit
+      run: |
+        git config --local user.email "kanika1894@github.com"
+        git config --local user.name "kanika1894"
+        git add --all
+        if [-z "$(git status --porcelain)"]; then
+           echo "::set-output name=push::false"
+        else
+           git commit -m "Add changes" -a
+           echo "::set-output name=push::true"
+        fi
+      shell: bash
+ 
+    - name: Push changes
+      if: steps.commit.outputs.push == 'true'
+      uses: ad-m/github-push-action@master
+      with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+
