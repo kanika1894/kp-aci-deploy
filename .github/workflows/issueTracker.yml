@@ -89,7 +89,7 @@ jobs:
                     { q: `repo:${repo1} is:issue is:open label:under-investigation created:>${date('-365 day')}`}
                     )
                     console.log(results.toString())
-                    if(isNaN(results)){
+                    if(results === {}){
                       return { value: 0, url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
                     }
                     else{
