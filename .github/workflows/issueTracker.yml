@@ -64,7 +64,7 @@ jobs:
               - 'number of issues'
               elements:
               - -value:'need-to-triage'
-                 color: 'yellow'
+                 color:'yellow'
                 -script: | 
                   const repo1 = 'Azure/login' 
                   const results = await github.search.issuesAndPullRequests(
