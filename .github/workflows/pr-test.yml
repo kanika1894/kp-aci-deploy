@@ -54,7 +54,7 @@ jobs:
                     const color = (count > 0) ? 'yellow' : 'green' 
                     return { value: count, color: color }
                     
-             - - value: 'Stale PRs'
+              - - value: 'Stale PRs'
                 - script: | 
                     const repo1 = 'Azure/login' 
                     const results = await github.search.issuesAndPullRequests(
