@@ -1,0 +1,91 @@
+# This is a basic workflow to help you get started with Actions
+
+name: pr-counter
+
+on:
+  push:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: 'Generate Dashboard'
+      id: dashboard
+      uses: ethomson/issue-dashboard@v1
+      with:
+        config: |
+          title: 'PR - Dashboard'
+          output:
+            format: html
+            filename: 'pr.html'
+          sections:
+          - title: 'PRs'
+            widgets:
+            - type: 'table'
+              title: 'az login'
+              headers:
+              - 'label'
+              - 'PR category'
+              - 'Count'
+              elements:
+              - - value: 'Total PRs'
+                  color: 'yellow'
+                - script: | 
+                    const repo1 = 'Azure/login' 
+                    const results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo1} is:pr is:open`}
+                    ) 
+                    const count = results.data.total_count 
+                    const title = 'total issues' 
+                    const color = (count > 10) ? 'red' : 'green' 
+                    return { value: count, color: color }
+              - - value: 'Idle PRs'
+                - script: | 
+                    const repo1 = 'Azure/login' 
+                    const results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo1} is:pr is:open label:idle`}
+                    ) 
+                    const count = results.data.total_count 
+                    const title = 'total issues' 
+                    const color = (count > 0) ? 'yellow' : 'green' 
+                    return { value: count, color: color }
+                    
+              - - value: 'Stale PRs'
+                - script: | 
+                    const repo1 = 'Azure/login' 
+                    const results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo1} is:pr is:open created:<${date('90 day')`}
+                    ) 
+                    const count = results.data.total_count 
+                    const title = 'total issues' 
+                    const color = (count > 0) ? 'red' : 'green' 
+                    return { value: count, color: color }
+                  
+        token: ${{ github.token }}
+
+    - name: Commit files
+      id: commit
+      run: |
+        git config --local user.email "kanika1894@github.com"
+        git config --local user.name "kanika1894"
+        git add --all
+        if [-z "$(git status --porcelain)"]; then
+           echo "::set-output name=push::false"
+        else
+           git commit -m "Add changes" -a
+           echo "::set-output name=push::true"
+        fi
+      shell: bash
+ 
+    - name: Push changes
+      if: steps.commit.outputs.push == 'true'
+      uses: ad-m/github-push-action@master
+      with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
