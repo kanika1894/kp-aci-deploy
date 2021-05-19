@@ -82,14 +82,14 @@ jobs:
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:issue is:open label:enhancement created:>${date('-365 day')}`}
                     )
-                    console.log(Object.keys(results).length)
+                    console.log(results)
                     return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement'}
                 - script: |
                     const repo1 = 'Azure/login'
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:issue is:open label:under-investigation created:>${date('-365 day')}`}
                     )
-                    console.log(Object.keys(results).length)
+                    console.log(results)
                     if(JSON.stringify(results) === '{}'){
                       return { value: '0', url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
                     }
