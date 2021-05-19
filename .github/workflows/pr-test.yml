@@ -60,7 +60,6 @@ jobs:
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:pr is:open created:<${date('-90 days')}` }
                     ) 
-                    const count = (results.data.total_count != [object Object]) ? results.data.total_count : 0
                     const color = (count > 0) ? 'red' : 'green' 
                     return { value: count, color: color }
                   
