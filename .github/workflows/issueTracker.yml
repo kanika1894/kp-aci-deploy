@@ -111,19 +111,19 @@ jobs:
                     { q: `repo:${repo1} is:issue is:open label:suggestion created:>${date('-365 day')}`}
                     ) 
                     return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Asuggestion'}
-               - script: | 
+                - script: | 
                     const repo1 = 'Azure/login' 
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:issue is:open label:performance-issue created:>${date('-365 day')}`}
                     ) 
                     return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aperformance-issue'}
-               - script: | 
+                - script: | 
                     const repo1 = 'Azure/login' 
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:issue is:open label:waiting-for-customer created:>${date('-365 day')}`}
                     ) 
                     return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Awaiting-for-customer'}
-               - script: | 
+                - script: | 
                     const repo1 = 'Azure/login' 
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:issue is:open label:external-dependency created:>${date('-365 day')}`}
