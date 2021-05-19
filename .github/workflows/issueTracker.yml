@@ -71,7 +71,7 @@ jobs:
                   color: 'blue'
                 - issue_query: 'repo:Azure/login is:open is:issue label:enhancement created:>{{ date("-365 days") }}'
                   color: 'yellow'
-              token: ${{ github.token }}
+        token: ${{ github.token }}
 
     - name: Commit files
       id: commit
