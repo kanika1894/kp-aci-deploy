@@ -40,7 +40,7 @@ jobs:
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:pr is:open`}
                     ) 
-                    const count = results.data.total_count 
+                    const count = (results.data.total_count > 0) ? results.data.total_count : 0
                     const color = (count > 10) ? 'red' : 'green' 
                     return { value: count, color: color }
                     
@@ -50,7 +50,7 @@ jobs:
                     const results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:pr is:open label:idle`}
                     ) 
-                    const count = results.data.total_count 
+                    const count = (results.data.total_count > 0) ? results.data.total_count : 0
                     const color = (count > 0) ? 'yellow' : 'green' 
                     return { value: count, color: color }
                     
