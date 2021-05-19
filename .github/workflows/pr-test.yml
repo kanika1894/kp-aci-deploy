@@ -31,7 +31,6 @@ jobs:
             - type: 'table'
               title: 'az login'
               headers:
-              - 'label'
               - 'PR category'
               - 'Count'
               elements:
@@ -53,6 +52,16 @@ jobs:
                     ) 
                     const count = results.data.total_count 
                     const color = (count > 0) ? 'yellow' : 'green' 
+                    return { value: count, color: color }
+                    
+              - - value: 'Stale PRs'
+                - script: | 
+                    const repo1 = 'Azure/login' 
+                    const results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo1} is:pr is:open created:<${date('90 day')`}
+                    ) 
+                    const count = results.data.total_count 
+                    const color = (count > 0) ? 'red' : 'green' 
                     return { value: count, color: color }
                   
         token: ${{ github.token }}
