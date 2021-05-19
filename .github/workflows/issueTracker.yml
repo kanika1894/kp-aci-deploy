@@ -63,17 +63,17 @@ jobs:
               - 'label'
               - 'number of issues'
               elements:
-              - -value:'need-to-triage'
-                 color:'yellow'
-                -script: | 
-                  const repo1 = 'Azure/login' 
-                  const results = await github.search.issuesAndPullRequests(
-                  { q: `repo:${repo1} is:issue is:open label:need-to-triage created:>${date('-365 day')}`}
-                  ) 
-                  const count = results.data.total_count 
-                  const title = 'total issues' 
-                  const color = (count > 10) ? 'red' : 'green' 
-                  return { value: count, color: color }
+              - - value:'need-to-triage'
+                  color:'yellow'
+                - script: | 
+                    const repo1 = 'Azure/login' 
+                    const results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo1} is:issue is:open label:need-to-triage created:>${date('-365 day')}`}
+                    ) 
+                    const count = results.data.total_count 
+                    const title = 'total issues' 
+                    const color = (count > 10) ? 'red' : 'green' 
+                    return { value: count, color: color }
                   
         token: ${{ github.token }}
 
