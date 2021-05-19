@@ -1,15 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: issue db
+name: issue_dashboard
 
 # Controls when the action will run. 
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ gh-pages ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -31,26 +27,44 @@ jobs:
             format: html
             filename: 'index.html'
           sections:
-          - title: 'Pull Requests'
+          - title: 'issues'
             widgets:
             - type: 'number'
-              title: 'Open Issues in libgit2'
-              issue_query: 'repo:libgit2/libgit2 is:open is:issue created:>{{ date("-365 days") }} '
-              color: red
+              title: 'az login'
+              issue_query: 'repo:Azure/login is:open is:issue created:>{{ date("-365 days") }}'
+              color: 'green'
             - type: 'number'
-              title: 'closed Issues in libgit2'
-              issue_query: 'repo:libgit2/libgit2 is:closed is:issue created:>{{ date("-365 days") }} '
-              color: green
+              title: 'webapps-deploy'
+              issue_query: 'repo:Azure/webapps-deploy is:open is:issue created:>{{ date("-365 days") }}'
+              color: 'green'
+            - type: 'number'
+              title: 'aci-deploy'
+              issue_query: 'repo:Azure/aci-deploy is:open is:issue created:>{{ date("-365 days") }}'
+              color: 'green'
+            - type: 'number'
+              title: 'functions-action'
+              issue_query: 'repo:Azure/functions-action is:open is:issue created:>{{ date("-365 days") }}'
+              color: 'green'
+            - type: number 
+              script: | 
+                const repo1 = 'Azure/login' 
+                const repo2 = 'Azure/webapps-deploy' 
+                const repo3 = 'Azure/aci-deploy'
+                const repo4 = 'Azure/functions-action' 
+                const results = await github.search.issuesAndPullRequests(
+                { q: `repo:${repo1} repo:${repo2} repo:${repo3} repo:${repo4} is:issue is:open created:>${date('-365 day')}`}
+                ) 
+                const count = results.data.total_count 
+                const title = 'total issues' 
+                const color = (count > 10) ? 'red' : 'green' 
+                return { value: count, title: title, color: color }
         token: ${{ github.token }}
-
-    - name: 'print output'
-      run: cat < dashboard.html
 
     - name: Commit files
       id: commit
       run: |
-        git config --local user.email "kanika1894@github.com"
-        git config --local user.name "kanika1894"
+        git config --local user.email "balaga-gayatri@github.com"
+        git config --local user.name "balaga-gayatri"
         git add --all
         if [-z "$(git status --porcelain)"]; then
            echo "::set-output name=push::false"
