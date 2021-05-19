@@ -26,6 +26,7 @@ jobs:
             format: html
             filename: 'pr.html'
           sections:
+           - title: 'issues'
             widgets:
             - type: 'table'
               title: 'Az login'
