@@ -90,10 +90,10 @@ jobs:
                     )
                     console.log(results.toString())
                     if(results === {}){
-                      return { value: 0, url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
+                      return { value: '0', url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
                     }
                     else{
-                      return { value: results.toString() ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
+                      return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
                     }
                 - script: |
                     const repo1 = 'Azure/login'
