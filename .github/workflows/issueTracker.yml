@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: issue_dashboard
+name: testin_table
 
 on:
   push:
@@ -63,8 +63,7 @@ jobs:
               - 'label'
               - 'number of issues'
               elements:
-              - - value: 'repo:Azure/login is:open is:issue label:need-to-triage created:>{{ date("-365 days") }}'
-                  color: 'yellow'
+              - ['need-label', issue_query: 'repo:Azure/login is:open is:issue label:need-to-triage created:>{{ date("-365 days") }}' ]
               - - value: 'enhancement'
                   color: 'blue'
                   
