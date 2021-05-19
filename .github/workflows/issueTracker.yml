@@ -75,60 +75,6 @@ jobs:
                     { q: `repo:${repo1} is:issue is:open label:need-to-triage created:>${date('-365 day')}`}
                     ) 
                     return { value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'}
-                - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:issue is:open label:enhancement created:>${date('-365 day')}`}
-                    ) 
-                    return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement'}
-                - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:issue is:open label:under-investigation created:>${date('-365 day')}`}
-                    ) 
-                    return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aunder-investigation'}
-                - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:issue is:open label:question created:>${date('-365 day')}`}
-                    ) 
-                    return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aquestion'}
-                - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:issue is:open label:bug created:>${date('-365 day')}`}
-                    ) 
-                    return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Abug'}
-               - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:issue is:open label:documentation created:>${date('-365 day')}`}
-                    ) 
-                    return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3documentation'}
-               - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:issue is:open label:suggestion created:>${date('-365 day')}`}
-                    ) 
-                    return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Asuggestion'}
-               - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:issue is:open label:performance-issue created:>${date('-365 day')}`}
-                    ) 
-                    return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aperformance-issue'}
-               - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:issue is:open label:waiting-for-customer created:>${date('-365 day')}`}
-                    ) 
-                    return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Awaiting-for-customer'}
-               - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:issue is:open label:external-dependency created:>${date('-365 day')}`}
-                    ) 
-                    return { value: results.data.total_count ,url:'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aexternal-dependency'}
                
                   
         token: ${{ github.token }}
