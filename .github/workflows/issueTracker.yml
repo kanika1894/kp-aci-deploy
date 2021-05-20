@@ -24,12 +24,13 @@ jobs:
             format: html
             filename: 'index.html'
           setup: |
-              userdata.values = async function(repo) {
+              userdata.values = async function(repo,label) {
                 const repo1 = repo
+                const label1 = label
                 const results = await github.search.issuesAndPullRequests(
-                { q: `repo:${repo1} is:issue is:open label:need-to-triage created:>${date('-365 day')}`}
+                { q: `repo:${repo1} is:issue is:open label:${label1} created:>${date('-365 day')}`}
                 )
-                const issueslink = 'https://github.com/'+repo1+'/issues?q=is%3Aissue+is%3Aopen+label%3A'+label
+                const issueslink = 'https://github.com/'+repo1+'/issues?q=is%3Aissue+is%3Aopen+label%3A'+label1
                 if(results.data.items.length === 0){
                   return '0'
                 }
@@ -90,7 +91,7 @@ jobs:
               - 'waiting-for-customer'
               - 'external-dependency'
               elements:
-              - - value: '{{ userdata.values("Azure/login") }}'
+              - - value: '{{ userdata.values("Azure/login","need-to-triage") }}'
                   url: '{{ userdata.urls("Azure/login","need-to-triage") }}'
                 - script: |
                     const repo1 = 'Azure/login'
