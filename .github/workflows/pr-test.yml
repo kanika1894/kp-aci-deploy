@@ -21,7 +21,7 @@ jobs:
       uses: ethomson/issue-dashboard@v1
       with:
         config: |
-          title: 'PR Dashboard removing border'
+          title: 'PR Dashboard sections update'
           output:
             format: html
             filename: 'pr.html'
