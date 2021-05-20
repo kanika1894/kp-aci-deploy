@@ -25,6 +25,26 @@ jobs:
           output:
             format: html
             filename: 'pr.html'
+          setup: |
+              userdata.values = async function(repo,label) {
+                const repo1 = repo
+                const label1 = label
+                const results = await github.search.issuesAndPullRequests(
+                { q: `repo:${repo1} is:pr is:open label:${label1}`}
+                )
+                const prlink = 'https://github.com/'+repo1+'/pull?q=is%3Apr+is%3Aopen+label%3A'+label1
+                if(results.data.items.length === 0){
+                  return '0'
+                }
+                else{
+                  return results.data.total_count 
+                }
+              }
+              userdata.urls = async function(repo,label) {
+                const repo1 = repo
+                const prlink = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3Aopen+label%3A'+label
+                return prlink
+              }  
           sections:
           - title: 'Az login'
             widgets:
@@ -34,15 +54,13 @@ jobs:
               - 'Count'
               elements:
               - - value: 'Total PRs'
-                - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open`}
-                    ) 
-                    const count = (results.data.items.length === 0) ? 0 : results.data.total_count
-                    const color = (count > 10) ? 'red' : 'green' 
-                    return { value: count, color: color }
+                - value: '{{ userdata.values("Azure/login","") }}'
+                  url: '{{ userdata.urls("Azure/login","") }}'
                     
+              - - value: 'Idle PRs'
+                - value: '{{ userdata.values("Azure/login","idle") }}'
+                  url: '{{ userdata.urls("Azure/login","idle") }}'
+                  
               - - value: 'Idle PRs'
                 - script: | 
                     const repo1 = 'Azure/login' 
