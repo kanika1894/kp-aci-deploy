@@ -90,8 +90,8 @@ jobs:
               - 'waiting-for-customer'
               - 'external-dependency'
               elements:
-              - - value : '{{ userdata.value('Azure/login') }}'
-                  url : '{{ userdata.url('Azure/login','need-to-triage') }}'
+              - - value: '{{ userdata.value('Azure/login') }}'
+                  url: '{{ userdata.url('Azure/login','need-to-triage') }}'
                 - script: |
                     const repo1 = 'Azure/login'
                     const results = await github.search.issuesAndPullRequests(
