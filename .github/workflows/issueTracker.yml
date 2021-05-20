@@ -25,7 +25,14 @@ jobs:
             filename: 'index.html'
           setup: |
               userdata.values = async function(repo,label) {
-                await sleep(2000)
+                function sleep(milliseconds) {
+                  const date = Date.now();
+                  let currentDate = null;
+                  do {
+                    currentDate = Date.now();
+                  } while (currentDate - date < milliseconds);
+                }
+                sleep(2000)
                 const repo1 = repo
                 const label1 = label
                 const results = await github.search.issuesAndPullRequests(
@@ -40,7 +47,14 @@ jobs:
                 }
               }
               userdata.urls = async function(repo,label) {
-                await sleep(2000)
+                function sleep(milliseconds) {
+                  const date = Date.now();
+                  let currentDate = null;
+                  do {
+                    currentDate = Date.now();
+                  } while (currentDate - date < milliseconds);
+                }
+                sleep(2000)
                 const repo1 = repo
                 const issueslink = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3Aopen+label%3A'+label
                 return issueslink
