@@ -179,7 +179,7 @@ jobs:
       run: |
         git config --local user.email "kanika1894@github.com"
         git config --local user.name "kanika1894"
-        git add --all${{ github.token }}
+        git add --all
         if [-z "$(git status --porcelain)"]; then
            echo "::set-output name=push::false"
         else
