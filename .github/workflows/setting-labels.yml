@@ -36,7 +36,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           stale-pr-message: "This PR is idle because it has been open for 15 days with no activity."
           stale-pr-label: "idle"
-          days-before-stale: 0
+          days-before-stale: 14
           days-before-close: -1
           operations-per-run: 100
           exempt-pr-labels: "backlog"
