@@ -14,10 +14,6 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
 
-    - name: print
-      run: |
-        echo ${{ github.token }}
-     
     - name: 'Generate Dashboard'
       id: dashboard
       uses: ethomson/issue-dashboard@v1
@@ -160,7 +156,7 @@ jobs:
                 - value: '{{ userdata.values("Azure/aci-deploy","external-dependency") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","external-dependency") }}'
                   
-#         token: ${{ github.token }}
+        token: 'abc'
 
     - name: Commit files
       id: commit
