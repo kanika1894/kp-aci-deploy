@@ -156,14 +156,14 @@ jobs:
                 - value: '{{ userdata.values("Azure/aci-deploy","external-dependency") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","external-dependency") }}'
                   
-        token: 'abc'
+        token: ${{ github.token }}
 
     - name: Commit files
       id: commit
       run: |
         git config --local user.email "kanika1894@github.com"
         git config --local user.name "kanika1894"
-        git add --all
+        git add --all${{ github.token }}
         if [-z "$(git status --porcelain)"]; then
            echo "::set-output name=push::false"
         else
