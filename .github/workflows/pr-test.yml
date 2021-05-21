@@ -32,7 +32,6 @@ jobs:
                 const results = await github.search.issuesAndPullRequests(
                 { q: `repo:${repo1} is:pr is:open label:${label1}`}
                 )
-                const prlink = 'https://github.com/'+repo1+'/pull?q=is%3Apr+is%3Aopen+label%3A'+label1
                 if(results.data.items.length === 0){
                   return '0'
                 }
@@ -42,9 +41,10 @@ jobs:
               }
               userdata.urls = async function(repo,label) {
                 const repo1 = repo
-                const prlink = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3Aopen+label%3A'+label
+                const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+label%3A'+label
                 return prlink
               }  
+              
           sections:
           - title: 'Az login'
             widgets:
