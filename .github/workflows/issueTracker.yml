@@ -89,7 +89,7 @@ jobs:
                 ) 
                 const count = results.data.total_count 
                 const title = 'total issues' 
-                const url = https://github.com/search?q=repo%3Aazure%2Faks-set-context+repo%3Aazure%2Fcontainer-scan+repo%3Aazure%2Fdocker-login+repo%3Aazure%2Fk8s-bake+repo%3Aazure%2Fk8s-create-secret+repo%3Aazure%2Fk8s-deploy+repo%3Aazure%2Fk8s-lint+repo%3Aazure%2Fk8s-set-context+repo%3Aazure%2Fmanage-azure-policy+repo%3Aazure%2Fpipelines+repo%3Aazure%2Fpolicy-compliance-scan+repo%3Aazure%2Fsetup-helm+repo%3Aazure%2Fsetup-kubectl+is%3Aissue+is%3Aopen&type=Issues
+                const url = 'https://github.com/search?q=repo%3Aazure%2Faks-set-context+repo%3Aazure%2Fcontainer-scan+repo%3Aazure%2Fdocker-login+repo%3Aazure%2Fk8s-bake+repo%3Aazure%2Fk8s-create-secret+repo%3Aazure%2Fk8s-deploy+repo%3Aazure%2Fk8s-lint+repo%3Aazure%2Fk8s-set-context+repo%3Aazure%2Fmanage-azure-policy+repo%3Aazure%2Fpipelines+repo%3Aazure%2Fpolicy-compliance-scan+repo%3Aazure%2Fsetup-helm+repo%3Aazure%2Fsetup-kubectl+is%3Aissue+is%3Aopen&type=Issues'
                 const color = (count > 10) ? 'red' : 'green' 
                 return { value: count, title: title, color: color, url: url }
           - title: 'label-wise'
