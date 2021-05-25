@@ -37,7 +37,7 @@ jobs:
                 }
                 else if(label === "stale") {
                     results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open created:<{{ date("-90 days") }}`}
+                    { q: `repo:${repo1} is:pr is:open created:<${date("-90 days")}`}
                     )
                 }
                 else{
