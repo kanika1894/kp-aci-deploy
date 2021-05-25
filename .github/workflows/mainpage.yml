@@ -54,20 +54,20 @@ jobs:
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
                     var prlink;
                     if(label === "") {
-                      prlink = 'https://github.com/'+repos +'/pulls?q=is%3Apr+is%3Aopen'
+                      prlink = 'https://github.com/search?q='+ repos + '+is%3Apr'+ '+is%3Aopen'
                     }
                     else if(label === "stale") {
                       var today = new Date();
                       var myPastDate=new Date(today);
                       myPastDate.setDate(myPastDate.getDate() - 90);
                       var staledate = myPastDate.toISOString().split("T")[0];
-                      prlink = 'https://github.com/' + repos + '/pulls?q=is%3Apr+is%3Aopen' + '+created%3A<'+staledate+'+'
+                      prlink = 'https://github.com/search?q=' + repos + '+is%3Apr' + '+is%3Aopen' + '+created%3A<'+staledate+'+'
                     }
                     else if(label === "closed") {
-                      prlink = 'https://github.com/'+repos +'/pulls?q=is%3Apr+is%3Aclosed' +'+label%3A'+label
+                      prlink = 'https://github.com/search?q='+ repos +'is%3Apr+is%3Aclosed' +'+label%3A'
                     }
                     else{
-                      prlink = 'https://github.com/'+repos +'/pulls?q=is%3Apr+is%3Aopen'+'label%3A'+label
+                      prlink = 'https://github.com/search?q='+ repos +'%3Apr+is%3Aopen'+'label%3A'+label
                     }
                     return prlink
                   } 
