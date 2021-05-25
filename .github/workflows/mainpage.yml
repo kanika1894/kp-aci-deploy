@@ -64,10 +64,10 @@ jobs:
                       prlink = 'https://github.com/search?q=' + repos + '+is%3Apr' + '+is%3Aopen' + '+created%3A<'+ staledate+'+'
                     }
                     else if(label === "closed") {
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3Apr'+ '+is%3Aclosed' + '+label%3A'
+                      prlink = 'https://github.com/search?q='+ repos + '+is%3Apr'+ '+is%3Aclosed'
                     }
                     else{
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3Apr'+ '+is%3Aopen' + 'label%3A' + label
+                      prlink = 'https://github.com/search?q='+ repos + '+is%3Apr'+ '+is%3Aopen' + '+label%3A' + label
                     }
                     return prlink
                   } 
