@@ -1,0 +1,106 @@
+name: summary
+'on':
+  - workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Generate Dashboard
+        id: dashboard
+        uses: ethomson/issue-dashboard@v1
+        with:
+          config: |
+            title: 'Summary1'
+            output:
+              format: html
+              filename: 'mainpage.html'
+            setup: | 
+                  userdata.values = async function(itemType,label) {
+                  const repos = 'repo: Azure/login repo: Azure/arm-deploy'
+                  const filter = label
+                  const item = itemType
+                  var results;
+                  if(label === "") {
+                      results = await github.search.issuesAndPullRequests(
+                      { q: `repo:${repos} is:${item} is:open`}
+                      )
+                  }
+                   else if(label === "stale") {
+                      results = await github.search.issuesAndPullRequests(
+                      { q: `repo:${repos} is:${item} is:open created:<${date("-90 days")}`}
+                      )
+                  }
+                   else if(label === "closed") {
+                      results = await github.search.issuesAndPullRequests(
+                      { q: `repo:${repos} is:${item} is:closed`}
+                      )
+                  }
+                  else{
+                    results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repos} is:${item} is:open label:${filter}`}
+                    )
+                  }
+                  if(results.data.items.length === 0){
+                    return '0'
+                  }
+                  else{
+                    return results.data.total_count 
+                  }
+                }
+
+            sections:
+            - title: 'Issues'
+              widgets:
+              - type: 'number'
+                title: 'Total issues'
+                issue_query: '{{ userdata.values("issue","") }}'
+              - type: 'number'
+                title: 'Idle issues(inactive >14days)'
+                issue_query: '{{ userdata.values("issue","idle") }}'
+              - type: 'number'
+                title: 'P0 bugs'
+                issue_query: '{{ userdata.values("issue","P0") }}'
+              - type: 'number'
+                title: 'P1 bugs'
+                issue_query: 'repo:Azure/functions-action is:open is:issue'
+              - type: 'number'
+                title: 'Enhancements'
+                issue_query: 'repo:Azure/functions-action is:open is:issue'
+                
+            - title: 'PRs'
+              widgets:
+              - type: 'number'
+                title: 'Open'
+                issue_query: 'repo:Azure/login is:open is:issue'
+              - type: 'number'
+                title: 'Idle (inactive >14days)'
+                issue_query: 'repo:Azure/webapps-deploy is:open is:issue'
+              - type: 'number'
+                title: 'Stale (90 days old)'
+                issue_query: 'repo:Azure/aci-deploy is:open is:issue'
+              - type: 'number'
+                title: 'Closed'
+                issue_query: 'repo:Azure/functions-action is:open is:issue'
+                    
+          token: '${{ github.token }}'
+      - name: Commit files
+        id: commit
+        run: |
+          git config --local user.email "kanika1894@github.com"
+          git config --local user.name "kanika1894"
+          git pull
+          git add --all
+          if [-z "$(git status --porcelain)"]; then
+             echo "::set-output name=push::false"
+          else
+             git commit -m "Add changes" -a
+             echo "::set-output name=push::true"
+          fi
+        shell: bash
+      - name: Push changes
+        if: steps.commit.outputs.push == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: '${{ secrets.GITHUB_TOKEN }}'
