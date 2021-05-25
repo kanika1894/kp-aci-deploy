@@ -23,16 +23,18 @@ jobs:
           output:
             format: html
             filename: 'summary.html'
+          setup: | 
+                const repoString = 'repo:Azure/login repo:Azure/webapps-deploy Azure/aci-deploy'   
           sections:
           - title: 'Issues'
             widgets:
             - type: 'number'
               title: 'Total issues'
-              issue_query: 'repo:Azure/login is:open is:issue'
+              issue_query: '${repoString} is:issue is:open'
               color: 'green'
             - type: 'number'
               title: 'Idle issues(inactive >14days)'
-              issue_query: 'repo:Azure/webapps-deploy is:open is:issue'
+              issue_query: '${repoString} is:issue is:open label:idle'
               color: 'green'
             - type: 'number'
               title: 'P0 bugs'
