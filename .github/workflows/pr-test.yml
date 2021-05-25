@@ -51,7 +51,7 @@ jobs:
                   return results.data.total_count 
                 }
               }
-              userdata.urls = async function(repo,label) {
+              userdata.urls = async function(repo,label,criteria) {
                 const repo1 = repo
                 var prlink;
                 if(label === "") {
@@ -93,21 +93,21 @@ jobs:
                 - value: '{{ userdata.values("Azure/login","","closed") }}'
                   url: '{{ userdata.urls("Azure/login","","closed") }}'
               - - value: 'webapps-deploy'
-                - value: '{{ userdata.values("Azure/webapps-deploy","") }}'
-                  url: '{{ userdata.urls("Azure/webapps-deploy","") }}'
-                - value: '{{ userdata.values("Azure/webapps-deploy","stale") }}'
-                  url: '{{ userdata.urls("Azure/webapps-deploy","stale") }}'
-                - value: '{{ userdata.values("Azure/webapps-deploy","idle") }}'
-                  url: '{{ userdata.urls("Azure/webapps-deploy","idle") }}'
+                - value: '{{ userdata.values("Azure/webapps-deploy","","open") }}'
+                  url: '{{ userdata.urls("Azure/webapps-deploy","","open") }}'
+                - value: '{{ userdata.values("Azure/webapps-deploy","stale","open") }}'
+                  url: '{{ userdata.urls("Azure/webapps-deploy","stale","open") }}'
+                - value: '{{ userdata.values("Azure/webapps-deploy","idle","open") }}'
+                  url: '{{ userdata.urls("Azure/webapps-deploy","idle","open") }}'
                 - value: '{{ userdata.values("Azure/webapps-deploy","","closed") }}'
                   url: '{{ userdata.urls("Azure/webapps-deploy","","closed") }}'
               - - value: 'aci-deploy'
-                - value: '{{ userdata.values("Azure/aci-deploy","") }}'
-                  url: '{{ userdata.urls("Azure/aci-deploy","") }}'
-                - value: '{{ userdata.values("Azure/aci-deploy","stale") }}'
-                  url: '{{ userdata.urls("Azure/aci-deploy","stale") }}'
-                - value: '{{ userdata.values("Azure/aci-deploy","idle") }}'
-                  url: '{{ userdata.urls("Azure/aci-deploy","idle") }}'
+                - value: '{{ userdata.values("Azure/aci-deploy","","open") }}'
+                  url: '{{ userdata.urls("Azure/aci-deploy","","open") }}'
+                - value: '{{ userdata.values("Azure/aci-deploy","stale","open") }}'
+                  url: '{{ userdata.urls("Azure/aci-deploy","stale","open") }}'
+                - value: '{{ userdata.values("Azure/aci-deploy","idle","open") }}'
+                  url: '{{ userdata.urls("Azure/aci-deploy","idle","open") }}'
                 - value: '{{ userdata.values("Azure/aci-deploy","","closed") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","","closed") }}'
               
