@@ -43,116 +43,25 @@ jobs:
                 const repo1 = repo
                 const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+label%3A'+label
                 return prlink
-              }  
+              } 
               
           sections:
-          - title: 'Az login'
+          - title: 'PR'
             widgets:
             - type: 'table'
+              title: 'actions wise PRs'
               headers:
-              - 'PR category'
-              - 'Count'
+              - 'action'
+              - 'total open PR'
+              - 'stale PR'
+              - 'Idle PR'	
               elements:
-              - - value: 'Total PRs'
-                - value: '{{ userdata.values("Azure/login","") }}'
-                  url: '{{ userdata.urls("Azure/login","") }}'
-                    
-              - - value: 'Idle PRs'
+              - - value: 'Azure login'
+                - issue_query: 'repo:Azure/login is:open is:PR'
+                - issue_query: 'repo:Azure/login is:open is:PR created:<{{ date("-90 days") }}'
                 - value: '{{ userdata.values("Azure/login","idle") }}'
-                  url: './index.html'
-                  
-              - - value: 'Idle PRs'
-                - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open label:idle`}
-                    ) 
-                    const count = (results.data.items.length === 0) ? '0' : results.data.total_count
-                    const color = (count > 0) ? 'yellow' : 'green' 
-                    return { value: count, color: color }
-                    
-              - - value: 'Stale PRs'
-                - script: | 
-                    const repo1 = 'Azure/login' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open created:<${date('-90 days')}` }
-                    ) 
-                    const count = (results.data.items.length === 0) ? '0' : results.data.total_count
-                    const color = (count > 0) ? 'red' : 'green' 
-                    return { value: count, color: color }
-                    
-          - title: 'aci-deploy'
-            widgets:
-            - type: 'table'
-              headers:
-              - 'PR category'
-              - 'Count'
-              elements:
-              - - value: 'Total PRs'
-                - script: | 
-                    const repo1 = 'Azure/aci-deploy' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open`}
-                    ) 
-                    const count = (results.data.items.length === 0) ? 0 : results.data.total_count
-                    const color = (count > 10) ? 'red' : 'green' 
-                    return { value: count, color: color }
-                    
-              - - value: 'Idle PRs'
-                - script: | 
-                    const repo1 = 'Azure/aci-deploy' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open label:idle`}
-                    ) 
-                    const count = (results.data.items.length === 0) ? '0' : results.data.total_count
-                    const color = (count > 0) ? 'yellow' : 'green' 
-                    return { value: count, color: color }
-                    
-              - - value: 'Stale PRs'
-                - script: | 
-                    const repo1 = 'Azure/aci-deploy' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open created:<${date('-90 days')}` }
-                    ) 
-                    const count = (results.data.items.length === 0) ? '0' : results.data.total_count
-                    const color = (count > 0) ? 'red' : 'green' 
-                    return { value: count, color: color }
-          - title: 'aci-deploy'
-            widgets:
-            - type: 'table'
-              headers:
-              - 'PR category'
-              - 'Count'
-              elements:
-              - - value: 'Total PRs'
-                - script: | 
-                    const repo1 = 'Azure/webapps-deploy' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open`}
-                    ) 
-                    const count = (results.data.items.length === 0) ? 0 : results.data.total_count
-                    const color = (count > 10) ? 'red' : 'green' 
-                    return { value: count, color: color }
-                    
-              - - value: 'Idle PRs'
-                - script: | 
-                    const repo1 = 'Azure/webapps-deploy' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open label:idle`}
-                    ) 
-                    const count = (results.data.items.length === 0) ? '0' : results.data.total_count
-                    const color = (count > 0) ? 'yellow' : 'green' 
-                    return { value: count, color: color }
-                    
-              - - value: 'Stale PRs'
-                - script: | 
-                    const repo1 = 'Azure/webapps-deploy' 
-                    const results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open created:<${date('-90 days')}` }
-                    ) 
-                    const count = (results.data.items.length === 0) ? '0' : results.data.total_count
-                    const color = (count > 0) ? 'red' : 'green' 
-                    return { value: count, color: color }
+                  url: '{{ userdata.urls("Azure/login","idle") }}'
+          
                     
         token: ${{ github.token }}
 
