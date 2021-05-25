@@ -12,7 +12,7 @@ jobs:
         uses: ethomson/issue-dashboard@v1
         with:
           config: |
-            title: 'Summary3'
+            title: 'Summary4'
             output:
               format: html
               filename: 'mainpage.html'
@@ -54,7 +54,7 @@ jobs:
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
                     var prlink;
                     if(label === "") {
-                      prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen'
+                      prlink = 'https://github.com/'+repos +'/pulls?q=is%3Apr+is%3Aopen'
                     }
                     else if(label === "stale") {
                       var today = new Date();
