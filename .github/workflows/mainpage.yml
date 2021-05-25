@@ -67,7 +67,7 @@ jobs:
                       prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aclosed' +'+label%3A'+label
                     }
                     else{
-                      prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen'+label%3A'+label
+                      prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen'+'label%3A'+label
                     }
                     return prlink
                   } 
