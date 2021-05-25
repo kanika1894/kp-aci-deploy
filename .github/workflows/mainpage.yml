@@ -50,7 +50,7 @@ jobs:
                     }
                   }
                   
-                  userdata.pr-url = async function(label) {
+                  userdata.pullurl = async function(label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
                     var prlink;
                     if(label === "") {
@@ -64,7 +64,7 @@ jobs:
                       prlink = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3Aopen' + '+created%3A<'+staledate+'+'
                     }
                     else if(label === "closed") {
-                      prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aclosed +'+label%3A'+label
+                      prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aclosed' +'+label%3A'+label
                     }
                     else{
                       prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen'+label%3A'+label
@@ -96,19 +96,19 @@ jobs:
               - type: 'number'
                 title: 'Open'
                 issue_query: '{{ userdata.values("pr","") }}'
-                url: '{{ userdata.pr-url("") }}'
+                url: '{{ userdata.pullurl("") }}'
               - type: 'number'
                 title: 'Idle (inactive >14days)'
                 issue_query: '{{ userdata.values("pr","idle") }}'
-                url: '{{ userdata.pr-url("idle") }}'
+                url: '{{ userdata.pullurl("idle") }}'
               - type: 'number'
                 title: 'Stale (90 days old)'
                 issue_query: '{{ userdata.values("pr","stale") }}'
-                url: '{{ userdata.pr-url("stale") }}'
+                url: '{{ userdata.pullurl("stale") }}'
               - type: 'number'
                 title: 'Closed'
                 issue_query: '{{ userdata.values("pr","closed") }}'
-                url: '{{ userdata.pr-url("closed") }}'
+                url: '{{ userdata.pullurl("closed") }}'
                     
           token: '${{ github.token }}'
       - name: Commit files
