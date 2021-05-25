@@ -18,13 +18,13 @@ jobs:
               filename: 'mainpage.html'
             setup: | 
                   userdata.values = async function(itemType,label) {
-                    const repos = 'repo: Azure/login repo: Azure/arm-deploy'
+                    const repos = 'repo: Azure/login repo: Azure/aci-deploy'
                     const filter = label
                     const item = itemType
                     var results
                     if(label === "") {
                         results = await github.search.issuesAndPullRequests(
-                        { q: `repo:${repos} is:${item} is:open`}
+                        { q: `${repos} is:${item} is:open`}
                         )
                     }
 
