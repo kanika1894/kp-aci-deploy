@@ -55,7 +55,7 @@ jobs:
               elements:
               - - value: 'Total PRs'
                 - value: '{{ userdata.values("Azure/login","") }}'
-                  url: 'https://kanika1894.github.io/kp-aci-deploy'
+                  url: '{{ userdata.urls("Azure/login","") }}'
                     
               - - value: 'Idle PRs'
                 - value: '{{ userdata.values("Azure/login","idle") }}'
