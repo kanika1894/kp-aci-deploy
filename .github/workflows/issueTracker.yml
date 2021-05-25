@@ -84,7 +84,7 @@ jobs:
                   prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'+'label%3A'+label
                 }
                 return prlink
-            } 
+              } 
           sections:
           - title: 'label-wise'
             widgets:
