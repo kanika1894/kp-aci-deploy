@@ -70,18 +70,18 @@ jobs:
                 const repo1 = repo
                 var prlink;
                 if(label === "") {
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Aissue+is%3A'+'open'
+                  prlink = 'https://github.com/'+repo+ '/issues?q=is%3Aopen+is%3Aissue'
                 }
                 else if(label === "stale") {
                   var today = new Date();
                   var myPastDate=new Date(today);
                   myPastDate.setDate(myPastDate.getDate() - 90);
                   var staledate = myPastDate.toISOString().split("T")[0];
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Aissue+is%3A'+'open'+'+created%3A<'+staledate+'+'
+                  prlink = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3A'+'open'+'+created%3A<'+staledate+'+'
                   
                 }
                 else{
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Aissue+is%3A'+'open'+'+label%3A'+label
+                  prlink = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3A'+'open'+'+label%3A'+label
                 }
                 return prlink
               } 
