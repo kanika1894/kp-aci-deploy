@@ -88,6 +88,21 @@ jobs:
                   url: '{{ userdata.urls("Azure/login","stale") }}'
                 - value: '{{ userdata.values("Azure/login","idle") }}'
                   url: '{{ userdata.urls("Azure/login","idle") }}'
+              - - value: 'webapps-deploy'
+                - value: '{{ userdata.values("Azure/webapps-deploy","") }}'
+                  url: '{{ userdata.urls("Azure/webapps-deploy","") }}'
+                - value: '{{ userdata.values("Azure/webapps-deploy","stale") }}'
+                  url: '{{ userdata.urls("Azure/webapps-deploy","stale") }}'
+                - value: '{{ userdata.values("Azure/webapps-deploy","idle") }}'
+                  url: '{{ userdata.urls("Azure/webapps-deploy","idle") }}'
+              - - value: 'aci-deploy'
+                - value: '{{ userdata.values("Azure/aci-deploy","") }}'
+                  url: '{{ userdata.urls("Azure/aci-deploy","") }}'
+                - value: '{{ userdata.values("Azure/aci-deploy","stale") }}'
+                  url: '{{ userdata.urls("Azure/aci-deploy","stale") }}'
+                - value: '{{ userdata.values("Azure/aci-deploy","idle") }}'
+                  url: '{{ userdata.urls("Azure/aci-deploy","idle") }}'
+              
           
                     
         token: ${{ github.token }}
