@@ -12,7 +12,7 @@ jobs:
         uses: ethomson/issue-dashboard@v1
         with:
           config: |
-            title: 'Summary2'
+            title: 'Summary3'
             output:
               format: html
               filename: 'mainpage.html'
@@ -24,7 +24,7 @@ jobs:
                     var results
                     if(label === "") {
                         results = await github.search.issuesAndPullRequests(
-                        { q: `repo:Azure/login repo:Azure/aci-deploy is:issue is:open`}
+                        { q: `${repos} is:${item} is:open`}
                         )
                     }
                     else if(label === "stale") {
@@ -49,6 +49,28 @@ jobs:
                       return results.data.total_count 
                     }
                   }
+                  
+                  userdata.pr-url = async function(label) {
+                    const repos = 'repo:Azure/login repo:Azure/aci-deploy'
+                    var prlink;
+                    if(label === "") {
+                      prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen'
+                    }
+                    else if(label === "stale") {
+                      var today = new Date();
+                      var myPastDate=new Date(today);
+                      myPastDate.setDate(myPastDate.getDate() - 90);
+                      var staledate = myPastDate.toISOString().split("T")[0];
+                      prlink = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3Aopen' + '+created%3A<'+staledate+'+'
+                    }
+                    else if(label === "closed") {
+                      prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aclosed +'+label%3A'+label
+                    }
+                    else{
+                      prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen'+label%3A'+label
+                    }
+                    return prlink
+                  } 
 
             sections:
             - title: 'Issues'
@@ -64,25 +86,29 @@ jobs:
                 value: '{{ userdata.values("issue","P0") }}'
               - type: 'number'
                 title: 'P1 bugs'
-                value: 'repo:Azure/functions-action is:open is:issue'
+                value: '{{ userdata.values("issue","P1") }}'
               - type: 'number'
                 title: 'Enhancements'
-                value: 'repo:Azure/functions-action is:open is:issue'
+                value: '{{ userdata.values("issue","enhancement") }}'
                 
             - title: 'PRs'
               widgets:
               - type: 'number'
                 title: 'Open'
-                issue_query: 'repo:Azure/login is:open is:issue'
+                issue_query: '{{ userdata.values("pr","") }}'
+                url: '{{ userdata.pr-url("") }}'
               - type: 'number'
                 title: 'Idle (inactive >14days)'
-                issue_query: 'repo:Azure/webapps-deploy is:open is:issue'
+                issue_query: '{{ userdata.values("pr","idle") }}'
+                url: '{{ userdata.pr-url("idle") }}'
               - type: 'number'
                 title: 'Stale (90 days old)'
-                issue_query: 'repo:Azure/aci-deploy is:open is:issue'
+                issue_query: '{{ userdata.values("pr","stale") }}'
+                url: '{{ userdata.pr-url("stale") }}'
               - type: 'number'
                 title: 'Closed'
-                issue_query: 'repo:Azure/functions-action is:open is:issue'
+                issue_query: '{{ userdata.values("pr","closed") }}'
+                url: '{{ userdata.pr-url("closed") }}'
                     
           token: '${{ github.token }}'
       - name: Commit files
