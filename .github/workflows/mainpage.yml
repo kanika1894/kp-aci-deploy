@@ -21,7 +21,7 @@ jobs:
                   const repos = 'repo: Azure/login repo: Azure/arm-deploy'
                   const filter = label
                   const item = itemType
-                  var results;
+                  var results
                   if(label === "") {
                       results = await github.search.issuesAndPullRequests(
                       { q: `repo:${repos} is:${item} is:open`}
