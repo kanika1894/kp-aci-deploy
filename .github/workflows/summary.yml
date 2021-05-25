@@ -24,7 +24,7 @@ jobs:
             format: html
             filename: 'summary.html'
           setup: | 
-                const repoString = 'repo:Azure/login repo:Azure/webapps-deploy Azure/aci-deploy'   
+                const repoString = 'repo:Azure/arm-deploy repo:Azure/login'   
           sections:
           - title: 'Issues'
             widgets:
