@@ -29,18 +29,19 @@ jobs:
               userdata.values = async function(repo,label) {
                 const repo1 = repo
                 const label1 = label
+                var results;
                 if(label === "") {
-                    const results = await github.search.issuesAndPullRequests(
+                    results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:pr is:open label:${label1}`}
                     )
                 }
                 else if(label === "stale") {
-                    const results = await github.search.issuesAndPullRequests(
+                    results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:pr is:open created:<{{ date("-90 days") }}`}
                     )
                 }
                 else{
-                  const results = await github.search.issuesAndPullRequests(
+                  results = await github.search.issuesAndPullRequests(
                   { q: `repo:${repo1} is:pr is:open label:${label1}`}
                   )
                 }
