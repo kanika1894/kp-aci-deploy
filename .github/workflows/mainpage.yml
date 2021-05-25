@@ -12,13 +12,13 @@ jobs:
         uses: ethomson/issue-dashboard@v1
         with:
           config: |
-            title: 'Summary1'
+            title: 'Summary2'
             output:
               format: html
               filename: 'mainpage.html'
             setup: | 
                   userdata.values = async function(itemType,label) {
-                    const repos = 'repo: Azure/login repo: Azure/aci-deploy'
+                    const repos = 'repo:Azure/login repo:Azure/aci-deploy'
                     const filter = label
                     const item = itemType
                     var results
