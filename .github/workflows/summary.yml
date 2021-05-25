@@ -34,7 +34,7 @@ jobs:
                     { q: `repo:${repos} is:${item} is:open` }
                     )
                 }
-                else if(label === "stale") {
+                 else if(label === "stale") {
                     results = await github.search.issuesAndPullRequests(
                     { q: `repo:${repo1} is:${item} is:open created:<${date("-90 days")}`}
                     )
