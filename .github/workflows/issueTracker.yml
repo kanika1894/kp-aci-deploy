@@ -35,10 +35,22 @@ jobs:
                 sleep(2000)
                 const repo1 = repo
                 const label1 = label
-                const results = await github.search.issuesAndPullRequests(
-                { q: `repo:${repo1} is:issue is:open label:${label1}`}
-                )
-                const issueslink = 'https://github.com/'+repo1+'/issues?q=is%3Aissue+is%3Aopen+label%3A'+label1
+                var results;
+                if(label === "") {
+                    results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo1} is:pr is:open` }
+                    )
+                }
+                else if(label === "stale") {
+                    results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo1} is:pr is:open created:<${date("-90 days")}`}
+                    )
+                }
+                else{
+                  results = await github.search.issuesAndPullRequests(
+                  { q: `repo:${repo1} is:pr is:open label:${label1}`}
+                  )
+                }
                 if(results.data.items.length === 0){
                   return '0'
                 }
@@ -56,122 +68,112 @@ jobs:
                 }
                 sleep(2000)
                 const repo1 = repo
-                const issueslink = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3Aopen+label%3A'+label
-                return issueslink
-              }
+                var prlink;
+                if(label === "") {
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'
+                }
+                else if(label === "stale") {
+                  var today = new Date();
+                  var myPastDate=new Date(today);
+                  myPastDate.setDate(myPastDate.getDate() - 90);
+                  var staledate = myPastDate.toISOString().split("T")[0];
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'+'created%3A<'+staledate+'+'
+                  
+                }
+                else{
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'+'label%3A'+label
+                }
+                return prlink
+            } 
           sections:
-          - title: 'issues'
-            widgets:
-            - type: 'number'
-              title: 'az login'
-              issue_query: 'repo:Azure/login is:open is:issue'
-              color: 'green'
-            - type: 'number'
-              title: 'webapps-deploy'
-              issue_query: 'repo:Azure/webapps-deploy is:open is:issue'
-              color: 'green'
-            - type: 'number'
-              title: 'aci-deploy'
-              issue_query: 'repo:Azure/aci-deploy is:open is:issue'
-              color: 'green'
-            - type: 'number'
-              title: 'functions-action'
-              issue_query: 'repo:Azure/functions-action is:open is:issue'
-              color: 'green'
-            - type: number 
-              script: | 
-                const repo1 = 'Azure/login' 
-                const repo2 = 'Azure/webapps-deploy' 
-                const repo3 = 'Azure/aci-deploy'
-                const repo4 = 'Azure/functions-action' 
-                const results = await github.search.issuesAndPullRequests(
-                { q: `repo:${repo1} repo:${repo2} repo:${repo3} repo:${repo4} is:issue is:open`}
-                ) 
-                const count = results.data.total_count 
-                const title = 'total issues' 
-                const url = 'https://github.com/search?q=repo%3Aazure%2Faks-set-context+repo%3Aazure%2Fcontainer-scan+repo%3Aazure%2Fdocker-login+repo%3Aazure%2Fk8s-bake+repo%3Aazure%2Fk8s-create-secret+repo%3Aazure%2Fk8s-deploy+repo%3Aazure%2Fk8s-lint+repo%3Aazure%2Fk8s-set-context+repo%3Aazure%2Fmanage-azure-policy+repo%3Aazure%2Fpipelines+repo%3Aazure%2Fpolicy-compliance-scan+repo%3Aazure%2Fsetup-helm+repo%3Aazure%2Fsetup-kubectl+is%3Aissue+is%3Aopen&type=Issues'
-                const color = (count > 10) ? 'red' : 'green' 
-                return { value: count, title: title, color: color, url: url }
           - title: 'label-wise'
             widgets:
             - type: 'table'
               title: 'label-wise'
               headers:
               - 'action'
+              - 'open issues'
               - 'need-to-triage'
               - 'enhancement'
-              - 'under-investigation'	
               - 'question'
               - 'bug'
               - 'documentation'
-              - 'suggestion'
               - 'performance-issue'
               - 'waiting-for-customer'
               - 'external-dependency'
+              - 'idle(inactive>14days)'
+              - 'stale(90 days old)'
               elements:
               - - value: 'Azure login'
+                - value: '{{ userdata.values("Azure/login","") }}'
+                  url: '{{ userdata.urls("Azure/login","") }}'
                 - value: '{{ userdata.values("Azure/login","need-to-triage") }}'
                   url: '{{ userdata.urls("Azure/login","need-to-triage") }}'
                 - value: '{{ userdata.values("Azure/login","enhancement") }}'
                   url: '{{ userdata.urls("Azure/login","enhancement") }}'
-                - value: '{{ userdata.values("Azure/login","under-investigation") }}'
-                  url: '{{ userdata.urls("Azure/login","under-investigation") }}'
                 - value: '{{ userdata.values("Azure/login","question") }}'
                   url: '{{ userdata.urls("Azure/login","question") }}'
                 - value: '{{ userdata.values("Azure/login","bug") }}'
                   url: '{{ userdata.urls("Azure/login","bug") }}'
                 - value: '{{ userdata.values("Azure/login","documentation") }}'
                   url: '{{ userdata.urls("Azure/login","documentation") }}'
-                - value: '{{ userdata.values("Azure/login","suggestion") }}'
-                  url: '{{ userdata.urls("Azure/login","suggestion") }}'
                 - value: '{{ userdata.values("Azure/login","performance-issue") }}'
                   url: '{{ userdata.urls("Azure/login","performance-issue") }}'
                 - value: '{{ userdata.values("Azure/login","waiting-for-customer") }}'
                   url: '{{ userdata.urls("Azure/login","waiting-for-customer") }}'
                 - value: '{{ userdata.values("Azure/login","external-dependency") }}'
                   url: '{{ userdata.urls("Azure/login","external-dependency") }}'
+                - value: '{{ userdata.values("Azure/login","idle") }}'
+                  url: '{{ userdata.urls("Azure/login","idle") }}'
+                - value: '{{ userdata.values("Azure/login","stale") }}'
+                  url: '{{ userdata.urls("Azure/login","stale") }}'
+                 
               - - value: 'webapps-deploy'
+                - value: '{{ userdata.values("Azure/webapps-deploy","") }}'
+                  url: '{{ userdata.urls("Azure/webapps-deploy","") }}'
                 - value: '{{ userdata.values("Azure/webapps-deploy","need-to-triage") }}'
                   url: '{{ userdata.urls("Azure/webapps-deploy","need-to-triage") }}'
                 - value: '{{ userdata.values("Azure/webapps-deploy","enhancement") }}'
                   url: '{{ userdata.urls("Azure/webapps-deploy","enhancement") }}'
-                - value: '{{ userdata.values("Azure/webapps-deploy","under-investigation") }}'
-                  url: '{{ userdata.urls("Azure/webapps-deploy","under-investigation") }}'
                 - value: '{{ userdata.values("Azure/webapps-deploy","question") }}'
                   url: '{{ userdata.urls("Azure/webapps-deploy","question") }}'
                 - value: '{{ userdata.values("Azure/webapps-deploy","bug") }}'
                   url: '{{ userdata.urls("Azure/webapps-deploy","bug") }}'
                 - value: '{{ userdata.values("Azure/webapps-deploy","documentation") }}'
                   url: '{{ userdata.urls("Azure/webapps-deploy","documentation") }}'
-                - value: '{{ userdata.values("Azure/webapps-deploy","suggestion") }}'
-                  url: '{{ userdata.urls("Azure/webapps-deploy","suggestion") }}'
                 - value: '{{ userdata.values("Azure/webapps-deploy","performance-issue") }}'
                   url: '{{ userdata.urls("Azure/webapps-deploy","performance-issue") }}'
                 - value: '{{ userdata.values("Azure/webapps-deploy","waiting-for-customer") }}'
                   url: '{{ userdata.urls("Azure/webapps-deploy","waiting-for-customer") }}'
                 - value: '{{ userdata.values("Azure/webapps-deploy","external-dependency") }}'
                   url: '{{ userdata.urls("Azure/webapps-deploy","external-dependency") }}'
+                - value: '{{ userdata.values("Azure/webapps-deploy","idle") }}'
+                  url: '{{ userdata.urls("Azure/webapps-deploy","idle") }}'
+                - value: '{{ userdata.values("Azure/webapps-deploy","stale") }}'
+                  url: '{{ userdata.urls("Azure/webapps-deploy","stale") }}'
               - - value: 'aci-deploy'
+                - value: '{{ userdata.values("Azure/aci-deploy","") }}'
+                  url: '{{ userdata.urls("Azure/aci-deploy","") }}'
                 - value: '{{ userdata.values("Azure/aci-deploy","need-to-triage") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","need-to-triage") }}'
                 - value: '{{ userdata.values("Azure/aci-deploy","enhancement") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","enhancement") }}'
-                - value: '{{ userdata.values("Azure/aci-deploy","under-investigation") }}'
-                  url: '{{ userdata.urls("Azure/aci-deploy","under-investigation") }}'
                 - value: '{{ userdata.values("Azure/aci-deploy","question") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","question") }}'
                 - value: '{{ userdata.values("Azure/aci-deploy","bug") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","bug") }}'
                 - value: '{{ userdata.values("Azure/aci-deploy","documentation") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","documentation") }}'
-                - value: '{{ userdata.values("Azure/aci-deploy","suggestion") }}'
-                  url: '{{ userdata.urls("Azure/aci-deploy","suggestion") }}'
                 - value: '{{ userdata.values("Azure/aci-deploy","performance-issue") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","performance-issue") }}'
                 - value: '{{ userdata.values("Azure/aci-deploy","waiting-for-customer") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","waiting-for-customer") }}'
                 - value: '{{ userdata.values("Azure/aci-deploy","external-dependency") }}'
                   url: '{{ userdata.urls("Azure/aci-deploy","external-dependency") }}'
+                - value: '{{ userdata.values("Azure/aci-deploy","idle") }}'
+                  url: '{{ userdata.urls("Azure/aci-deploy","idle") }}'
+                - value: '{{ userdata.values("Azure/aci-deploy","stale") }}'
+                  url: '{{ userdata.urls("Azure/aci-deploy","stale") }}'
                   
         token: ${{ github.token }}
 
