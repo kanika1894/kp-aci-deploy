@@ -52,19 +52,20 @@ jobs:
               }
               userdata.urls = async function(repo,label) {
                 const repo1 = repo
+                var prlink;
                 if(label === "") {
-                  const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen'
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen'
                 }
                 else if(label === "stale") {
                   var today = new Date();
                   var myPastDate=new Date(today);
                   myPastDate.setDate(myPastDate.getDate() - 90);
                   var staledate = myPastDate.toISOString().split("T")[0];
-                  const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+created%3A>'+staledate+'+'
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+created%3A>'+staledate+'+'
                   
                 }
                 else{
-                  const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+label%3A'+label
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+label%3A'+label
                 }
                 return prlink
               } 
