@@ -2,9 +2,7 @@
 
 name: pr-counter
 
-on:
-  push:
-    branches: [ main ]
+on: [workflow_dispatch]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -32,7 +30,7 @@ jobs:
                 var results;
                 if(label === "") {
                     results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open label:${label1}`}
+                    { q: `repo:${repo1} is:pr is:open` }
                     )
                 }
                 else if(label === "stale") {
@@ -65,8 +63,9 @@ jobs:
                   const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+created%3A>'+staledate+'+'
                   
                 }
-                
-                const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+label%3A'+label
+                else{
+                  const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+label%3A'+label
+                }
                 return prlink
               } 
               
