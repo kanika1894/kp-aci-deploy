@@ -62,11 +62,11 @@ jobs:
                   var myPastDate=new Date(today);
                   myPastDate.setDate(myPastDate.getDate() - 90);
                   var staledate = myPastDate.toISOString().split("T")[0];
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+criteria+'+created%3A<'+staledate+'+'
+                  prlink = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + criteria + '+created%3A<'+staledate+'+'
                   
                 }
                 else{
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'+criteria+'+label%3A'+label
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+criteria+'+label%3A'+label
                 }
                 return prlink
               } 
