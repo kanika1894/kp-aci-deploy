@@ -34,7 +34,7 @@ jobs:
                   else{
                     return results.data.total_count 
                   }
-                }
+                 }
 
             sections:
             - title: 'Issues'
