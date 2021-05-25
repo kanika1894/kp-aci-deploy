@@ -29,17 +29,17 @@ jobs:
                     }
                     else if(label === "stale") {
                       results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repos} is:${item} is:open created:<${date("-90 days")}`}
+                      { q: `${repos} is:${item} is:open created:<${date("-90 days")}`}
                       )
                     } 
                     else if(label === "closed") {
                       results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repos} is:${item} is:closed`}
+                      { q: `${repos} is:${item} is:closed`}
                       )
                     }
                     else{
                       results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repos} is:${item} is:open label:${filter}`}
+                      { q: `${repos} is:${item} is:open label:${filter}`}
                       )
                     }
                     if(results.data.items.length === 0){
