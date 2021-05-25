@@ -29,9 +29,21 @@ jobs:
               userdata.values = async function(repo,label) {
                 const repo1 = repo
                 const label1 = label
-                const results = await github.search.issuesAndPullRequests(
-                { q: `repo:${repo1} is:pr is:open label:${label1}`}
-                )
+                if(label === "") {
+                    const results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo1} is:pr is:open label:${label1}`}
+                    )
+                }
+                else if(label === "stale") {
+                    const results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo1} is:pr is:open created:<{{ date("-90 days") }}`}
+                    )
+                }
+                else{
+                  const results = await github.search.issuesAndPullRequests(
+                  { q: `repo:${repo1} is:pr is:open label:${label1}`}
+                  )
+                }
                 if(results.data.items.length === 0){
                   return '0'
                 }
@@ -41,6 +53,18 @@ jobs:
               }
               userdata.urls = async function(repo,label) {
                 const repo1 = repo
+                if(label === "") {
+                  const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen'
+                }
+                else if(label === "stale") {
+                  var today = new Date();
+                  var myPastDate=new Date(today);
+                  myPastDate.setDate(myPastDate.getDate() - 90);
+                  var staledate = myPastDate.toISOString().split("T")[0];
+                  const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+created%3A>'+staledate+'+'
+                  
+                }
+                
                 const prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3Aopen+label%3A'+label
                 return prlink
               } 
@@ -57,8 +81,10 @@ jobs:
               - 'Idle PR'	
               elements:
               - - value: 'Azure login'
-                - issue_query: 'repo:Azure/login is:open is:PR'
-                - issue_query: 'repo:Azure/login is:open is:PR created:<{{ date("-90 days") }}'
+                - value: '{{ userdata.values("Azure/login","") }}'
+                  url: '{{ userdata.urls("Azure/login","") }}'
+                - value: '{{ userdata.values("Azure/login","stale") }}'
+                  url: '{{ userdata.urls("Azure/login","stale") }}'
                 - value: '{{ userdata.values("Azure/login","idle") }}'
                   url: '{{ userdata.urls("Azure/login","idle") }}'
           
