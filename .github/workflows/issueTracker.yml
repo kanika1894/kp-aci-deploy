@@ -38,17 +38,17 @@ jobs:
                 var results;
                 if(label === "") {
                     results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open` }
+                    { q: `repo:${repo1} is:issue is:open` }
                     )
                 }
                 else if(label === "stale") {
                     results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:open created:<${date("-90 days")}`}
+                    { q: `repo:${repo1} is:issue is:open created:<${date("-90 days")}`}
                     )
                 }
                 else{
                   results = await github.search.issuesAndPullRequests(
-                  { q: `repo:${repo1} is:pr is:open label:${label1}`}
+                  { q: `repo:${repo1} is:issue is:open label:${label1}`}
                   )
                 }
                 if(results.data.items.length === 0){
@@ -70,18 +70,18 @@ jobs:
                 const repo1 = repo
                 var prlink;
                 if(label === "") {
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Aissue+is%3A'+'open'
                 }
                 else if(label === "stale") {
                   var today = new Date();
                   var myPastDate=new Date(today);
                   myPastDate.setDate(myPastDate.getDate() - 90);
                   var staledate = myPastDate.toISOString().split("T")[0];
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'+'+created%3A<'+staledate+'+'
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Aissue+is%3A'+'open'+'+created%3A<'+staledate+'+'
                   
                 }
                 else{
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'+'+label%3A'+label
+                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Aissue+is%3A'+'open'+'+label%3A'+label
                 }
                 return prlink
               } 
