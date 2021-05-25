@@ -24,7 +24,7 @@ jobs:
                     var results
                     if(label === "") {
                         results = await github.search.issuesAndPullRequests(
-                        { q: `repo:Azure/login repo:Azure/aci-deploy is:${item} is:open`}
+                        { q: `repo:Azure/login repo:Azure/aci-deploy is:issue is:open`}
                         )
                     }
                     else if(label === "stale") {
@@ -55,19 +55,19 @@ jobs:
               widgets:
               - type: 'number'
                 title: 'Total issues'
-                issue_query: '{{ userdata.values("issue","") }}'
+                value: '{{ userdata.values("issue","") }}'
               - type: 'number'
                 title: 'Idle issues(inactive >14days)'
-                issue_query: '{{ userdata.values("issue","idle") }}'
+                value: '{{ userdata.values("issue","idle") }}'
               - type: 'number'
                 title: 'P0 bugs'
-                issue_query: '{{ userdata.values("issue","P0") }}'
+                value: '{{ userdata.values("issue","P0") }}'
               - type: 'number'
                 title: 'P1 bugs'
-                issue_query: 'repo:Azure/functions-action is:open is:issue'
+                value: 'repo:Azure/functions-action is:open is:issue'
               - type: 'number'
                 title: 'Enhancements'
-                issue_query: 'repo:Azure/functions-action is:open is:issue'
+                value: 'repo:Azure/functions-action is:open is:issue'
                 
             - title: 'PRs'
               widgets:
