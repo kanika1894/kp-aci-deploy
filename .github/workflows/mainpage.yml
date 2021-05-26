@@ -21,7 +21,7 @@ jobs:
                   userdata.count = async function(itemType,label) {
                     const state = (label==="closed")? "closed" : "open"
                     var results
-                    if(label === "") {
+                    if(label === "" || label === "closed") {
                         results = await github.search.issuesAndPullRequests(
                         { q: `${repos} is:${itemType} is:${state}`}
                         )
@@ -47,8 +47,8 @@ jobs:
                   userdata.url = async function(itemType,label) {
                     const state = (label==="closed")? "closed" : "open"
                     var url;
-                    if(label === "") {
-                      url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen' 
+                    if(label === "" || label === "closed") {
+                      url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3A' + state 
                     }
                     else if(label === "stale") {
                       var today = new Date();
