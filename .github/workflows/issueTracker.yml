@@ -32,7 +32,7 @@ jobs:
                     currentDate = Date.now();
                   } while (currentDate - date < milliseconds);
                 }
-                sleep(1000)
+                sleep(2000)
                 const state = (label==="closed")? "closed" : "open"
                 var results;
                 if(label === "" || label === "closed") {
@@ -65,7 +65,7 @@ jobs:
                     currentDate = Date.now();
                   } while (currentDate - date < milliseconds);
                 }
-                sleep(1000)
+                sleep(2000)
                 const state = (label==="closed")? "closed" : "open"
                 var url;
                 if(label === "" || label === "closed") {
