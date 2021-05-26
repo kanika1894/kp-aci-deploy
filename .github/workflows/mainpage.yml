@@ -17,10 +17,8 @@ jobs:
               format: html
               filename: 'mainpage.html'
             setup: | 
-                  userdata.values = async function(itemType,label) {
+                  userdata.values = async function(item,label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
-                    const filter = label
-                    const item = itemType
                     var results
                     if(label === "") {
                         results = await github.search.issuesAndPullRequests(
@@ -39,7 +37,7 @@ jobs:
                     }
                     else{
                       results = await github.search.issuesAndPullRequests(
-                      { q: `${repos} is:${item} is:open label:${filter}`}
+                      { q: `${repos} is:${item} is:open label:${label}`}
                       )
                     }
                     if(results.data.items.length === 0){
@@ -76,10 +74,6 @@ jobs:
             - title: 'Issues'
               widgets:
               - type: 'number'
-                title: 'Total issues'
-                value: '{{ userdata.values("issue","") }}'
-                url: '{{ userdata.url("issue","") }}'
-              - type: 'number'
                 title: 'Idle issues(inactive >14days)'
                 value: '{{ userdata.values("issue","idle") }}'
                 url: '{{ userdata.url("issue","idle") }}'
@@ -95,6 +89,10 @@ jobs:
                 title: 'Enhancements'
                 value: '{{ userdata.values("issue","enhancement") }}'
                 url: '{{ userdata.url("issue","enhancement") }}'
+              - type: 'number'
+                title: 'Total issues'
+                value: '{{ userdata.values("issue","") }}'
+                url: '{{ userdata.url("issue","") }}'
                 
             - title: 'PRs'
               widgets:
@@ -114,7 +112,17 @@ jobs:
                 title: 'Closed'
                 value: '{{ userdata.values("pr","closed") }}'
                 url: '{{ userdata.url("pr","closed") }}'
-                    
+                
+            - title: 'Details'
+              widgets:
+              - type: 'table'
+                elements:
+                - - value: 'Issues detailed view'
+                  - url: 'https://kanika1894.github.io/kp-aci-deploy'
+                - - value: 'PR detailed view'
+                  - url: 'https://kanika1894.github.io/kp-aci-deploy/pr.html'  
+              
+
           token: '${{ github.token }}'
       - name: Commit files
         id: commit
