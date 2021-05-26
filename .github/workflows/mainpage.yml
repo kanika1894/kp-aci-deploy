@@ -17,8 +17,8 @@ jobs:
               format: html
               filename: 'main.html'
             setup: | 
+                  const repos = 'repo:azure/aks-set-context repo:azure/k8s-set-context repo:azure/k8s-bake repo:azure/k8s-create-secret repo:azure/k8s-deploy repo:azure/k8s-lint repo:azure/setup-helm repo:azure/setup-kubectl repo:azure/manage-azure-policy repo:azure/policy-compliance-scan repo: azure/webapps-deploy repo:azure/appservice-settings repo:azure/functions-action repo:azure/functions-container-action repo:azure/container-scan repo:azure/static-web-apps-deploy'
                   userdata.count = async function(itemType,label) {
-                    const repos = 'repo:azure/login repo:azure/aci-deploy repo:azure/webapps-deploy'
                     const state = (label==="closed")? "closed" : "open"
                     var results
                     if(label === "") {
@@ -45,7 +45,6 @@ jobs:
                   }
                   
                   userdata.url = async function(itemType,label) {
-                    const repos = 'repo:Azure/login repo:Azure/aci-deploy repo:Azure/webapps-deploy'
                     const state = (label==="closed")? "closed" : "open"
                     var url;
                     if(label === "") {
