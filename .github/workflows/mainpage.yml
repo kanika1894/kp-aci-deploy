@@ -15,7 +15,7 @@ jobs:
             title: 'Health Dashboard'
             output:
               format: html
-              filename: 'mainpage.html'
+              filename: 'main.html'
             setup: | 
                   userdata.count = async function(itemType,label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
@@ -55,7 +55,7 @@ jobs:
                       var today = new Date();
                       var pastDate = new Date(today);
                       pastDate.setDate(pastDate.getDate() - 90);
-                      var staledate = myPastDate.toISOString().split("T")[0];
+                      var staledate = pastDate.toISOString().split("T")[0];
                       url = 'https://github.com/search?q=' + repos + '+is%3A' + itemType + '+is%3A' + state + '+created%3A<'+ staledate
                     }
                     else{
@@ -111,10 +111,10 @@ jobs:
               widgets:
               - type: 'string'
                 value: 'Issues detailed information'
-                url: 'https://kanika1894.github.io/kp-aci-deploy'
+                url: 'issue.html'
               - type: 'string'
                 value: 'PR detailed information'
-                url: 'https://kanika1894.github.io/kp-aci-deploy/pr.html'
+                url: 'pr.html'
 
           token: '${{ github.token }}'
       - name: Commit files
