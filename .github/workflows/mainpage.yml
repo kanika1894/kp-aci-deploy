@@ -17,27 +17,27 @@ jobs:
               format: html
               filename: 'mainpage.html'
             setup: | 
-                  item.count = async function(item,label) {
+                  item.count = async function(itemType,label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
                     var results
                     if(label === "") {
                         results = await github.search.issuesAndPullRequests(
-                        { q: `${repos} is:${item} is:open`}
+                        { q: `${repos} is:${itemType} is:open`}
                         )
                     }
                     else if(label === "stale") {
                       results = await github.search.issuesAndPullRequests(
-                      { q: `${repos} is:${item} is:open created:<${date("-90 days")}`}
+                      { q: `${repos} is:${itemType} is:open created:<${date("-90 days")}`}
                       )
                     } 
                     else if(label === "closed") {
                       results = await github.search.issuesAndPullRequests(
-                      { q: `${repos} is:${item} is:closed`}
+                      { q: `${repos} is:${itemType} is:closed`}
                       )
                     }
                     else{
                       results = await github.search.issuesAndPullRequests(
-                      { q: `${repos} is:${item} is:open label:${label}`}
+                      { q: `${repos} is:${itemType} is:open label:${label}`}
                       )
                     }
                     if(results.data.items.length === 0){
@@ -48,24 +48,24 @@ jobs:
                     }
                   }
                   
-                  item.url = async function(item,label) {
+                  item.url = async function(itemType,label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
                     var prlink;
                     if(label === "") {
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3A'+ item + '+is%3Aopen'
+                      prlink = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen'
                     }
                     else if(label === "stale") {
                       var today = new Date();
                       var myPastDate=new Date(today);
                       myPastDate.setDate(myPastDate.getDate() - 90);
                       var staledate = myPastDate.toISOString().split("T")[0];
-                      prlink = 'https://github.com/search?q=' + repos + '+is%3A' + item + '+is%3Aopen' + '+created%3A<'+ staledate
+                      prlink = 'https://github.com/search?q=' + repos + '+is%3A' + itemType + '+is%3Aopen' + '+created%3A<'+ staledate
                     }
                     else if(label === "closed") {
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3A' + item + '+is%3Aclosed'
+                      prlink = 'https://github.com/search?q='+ repos + '+is%3A' + itemType + '+is%3Aclosed'
                     }
                     else{
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3A'+ item + '+is%3Aopen' + '+label%3A' + label
+                      prlink = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen' + '+label%3A' + label
                     }
                     return prlink
                   } 
