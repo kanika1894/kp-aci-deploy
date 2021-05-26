@@ -24,52 +24,50 @@ jobs:
             format: html
             filename: 'pr.html'
           setup: |
-              userdata.values = async function(repo,label,criteria) {
-                const repo1 = repo
-                const label1 = label
-                const criteria1 = criteria
-                var results;
-                if(label === "") {
+                pr.count = async function(repo,label) {
+                  const criteria = (label==="closed")? "closed" : "open"
+                  var results;
+                  if(label === "" || label === "closed") {
+                      results = await github.search.issuesAndPullRequests(
+                      { q: `repo:${repo} is:pr is:${criteria}` }
+                      )
+                  }
+                  else if(label === "stale") {
+                      results = await github.search.issuesAndPullRequests(
+                      { q: `repo:${repo} is:pr is:${criteria} created:<${date("-90 days")}`}
+                      )
+                  }
+                  else{
                     results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:${criteria1}` }
+                    { q: `repo:${repo} is:pr is:${criteria} label:${label}`}
                     )
+                  }
+                  if(results.data.items.length === 0){
+                    return '0'
+                  }
+                  else{
+                    return results.data.total_count 
+                  }
                 }
-                else if(label === "stale") {
-                    results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo1} is:pr is:${criteria1} created:<${date("-90 days")}`}
-                    )
-                }
-                else{
-                  results = await github.search.issuesAndPullRequests(
-                  { q: `repo:${repo1} is:pr is:${criteria1} label:${label1}`}
-                  )
-                }
-                if(results.data.items.length === 0){
-                  return '0'
-                }
-                else{
-                  return results.data.total_count 
-                }
-              }
-              userdata.urls = async function(repo,label,criteria) {
-                const repo1 = repo
-                var prlink;
-                if(label === "") {
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+criteria
-                }
-                else if(label === "stale") {
-                  var today = new Date();
-                  var myPastDate=new Date(today);
-                  myPastDate.setDate(myPastDate.getDate() - 90);
-                  var staledate = myPastDate.toISOString().split("T")[0];
-                  prlink = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + criteria + '+created%3A<'+staledate+'+'
-                  
-                }
-                else{
-                  prlink = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+criteria+'+label%3A'+label
-                }
-                return prlink
-              } 
+                pr.url = async function(repo,label) {
+                  const criteria = (label==="closed")? "closed" : "open"
+                  var url;
+                  if(label === "" || label === "closed") {
+                  url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+criteria
+                  }
+                  else if(label === "stale") {
+                    var today = new Date();
+                    var PastDate=new Date(today);
+                    PastDate.setDate(myPastDate.getDate() - 90);
+                    var staledate = PastDate.toISOString().split("T")[0];
+                    url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + criteria + '+created%3A<'+staledate+'+'
+
+                  }
+                  else{
+                    url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+criteria+'+label%3A'+label
+                  }
+                  return url
+                } 
               
           sections:
           - title: 'PR'
@@ -83,33 +81,33 @@ jobs:
               - 'Idle PR(inactive > 14 days)'	
               - 'Closed PR'
               elements:
-              - - value: 'Azure login'
-                - value: '{{ userdata.values("Azure/login","","open") }}'
-                  url: '{{ userdata.urls("Azure/login","","open") }}'
-                - value: '{{ userdata.values("Azure/login","stale","open") }}'
-                  url: '{{ userdata.urls("Azure/login","stale","open") }}'
-                - value: '{{ userdata.values("Azure/login","idle","open") }}'
-                  url: '{{ userdata.urls("Azure/login","idle","open") }}'
-                - value: '{{ userdata.values("Azure/login","","closed") }}'
-                  url: '{{ userdata.urls("Azure/login","","closed") }}'
+              - - value: 'Azure login
+                - value: '{{ pr.count("Azure/login","") }}'
+                  url: '{{ pr.url("Azure/login","") }}'
+                - value: '{{ pr.count("Azure/login","stale") }}'
+                  url: '{{ pr.url("Azure/login","stale") }}'
+                - value: '{{ pr.count("Azure/login","idle") }}'
+                  url: '{{ pr.url("Azure/login","idle") }}'
+                - value: '{{ pr.count("Azure/login","closed") }}'
+                  url: '{{ pr.url("Azure/login","closed") }}'
               - - value: 'webapps-deploy'
-                - value: '{{ userdata.values("Azure/webapps-deploy","","open") }}'
-                  url: '{{ userdata.urls("Azure/webapps-deploy","","open") }}'
-                - value: '{{ userdata.values("Azure/webapps-deploy","stale","open") }}'
-                  url: '{{ userdata.urls("Azure/webapps-deploy","stale","open") }}'
-                - value: '{{ userdata.values("Azure/webapps-deploy","idle","open") }}'
-                  url: '{{ userdata.urls("Azure/webapps-deploy","idle","open") }}'
-                - value: '{{ userdata.values("Azure/webapps-deploy","","closed") }}'
-                  url: '{{ userdata.urls("Azure/webapps-deploy","","closed") }}'
+                - value: '{{ pr.count("Azure/webapps-deploy","") }}'
+                  url: '{{ pr.url("Azure/webapps-deploy","") }}'
+                - value: '{{ pr.count("Azure/webapps-deploy","stale") }}'
+                  url: '{{ pr.url("Azure/webapps-deploy","stale") }}'
+                - value: '{{ pr.count("Azure/webapps-deploy","idle") }}'
+                  url: '{{ pr.url("Azure/webapps-deploy","idle") }}'
+                - value: '{{ pr.count("Azure/webapps-deploy","closed") }}'
+                  url: '{{ pr.url("Azure/webapps-deploy","closed") }}'
               - - value: 'aci-deploy'
-                - value: '{{ userdata.values("Azure/aci-deploy","","open") }}'
-                  url: '{{ userdata.urls("Azure/aci-deploy","","open") }}'
-                - value: '{{ userdata.values("Azure/aci-deploy","stale","open") }}'
-                  url: '{{ userdata.urls("Azure/aci-deploy","stale","open") }}'
-                - value: '{{ userdata.values("Azure/aci-deploy","idle","open") }}'
-                  url: '{{ userdata.urls("Azure/aci-deploy","idle","open") }}'
-                - value: '{{ userdata.values("Azure/aci-deploy","","closed") }}'
-                  url: '{{ userdata.urls("Azure/aci-deploy","","closed") }}'
+                - value: '{{ pr.count("Azure/aci-deploy","") }}'
+                  url: '{{ pr.url("Azure/aci-deploy","") }}'
+                - value: '{{ pr.count("Azure/aci-deploy","stale") }}'
+                  url: '{{ pr.url("Azure/aci-deploy","stale") }}'
+                - value: '{{ pr.count("Azure/aci-deploy","idle") }}'
+                  url: '{{ pr.url("Azure/aci-deploy","idle") }}'
+                - value: '{{ pr.count("Azure/aci-deploy","closed") }}'
+                  url: '{{ pr.url("Azure/aci-deploy","closed") }}'
               
           
                     
