@@ -32,11 +32,13 @@ a {
 }
 
 /* Header / footer */
+div#analytics {
+    background-color: #4D9294;
+}
 
 div#analytics h1 {
     width: 900px;
     margin: 50px 50px 30px 50px;
-    background-color: #4D9294
 }
 div#main_description {
     width: 900px;
