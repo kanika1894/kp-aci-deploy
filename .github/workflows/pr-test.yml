@@ -25,6 +25,14 @@ jobs:
             filename: 'pr.html'
           setup: |
                 userdata.count = async function(repo,label) {
+                  function sleep(milliseconds) {
+                  const date = Date.now();
+                  let currentDate = null;
+                  do {
+                    currentDate = Date.now();
+                  } while (currentDate - date < milliseconds);
+                  }
+                  sleep(1000)
                   const state = (label==="closed")? "closed" : "open"
                   var results;
                   if(label === "" || label === "closed") {
@@ -50,6 +58,14 @@ jobs:
                   }
                 }
                 userdata.url = async function(repo,label) {
+                  function sleep(milliseconds) {
+                  const date = Date.now();
+                  let currentDate = null;
+                  do {
+                    currentDate = Date.now();
+                  } while (currentDate - date < milliseconds);
+                  }
+                  sleep(1000)
                   const state = (label==="closed")? "closed" : "open"
                   var url;
                   if(label === "" || label === "closed") {
