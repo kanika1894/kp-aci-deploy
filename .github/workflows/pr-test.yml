@@ -25,21 +25,21 @@ jobs:
             filename: 'pr.html'
           setup: |
                 userdata.count = async function(repo,label) {
-                  const criteria = (label==="closed")? "closed" : "open"
+                  const state = (label==="closed")? "closed" : "open"
                   var results;
                   if(label === "" || label === "closed") {
                       results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repo} is:pr is:${criteria}` }
+                      { q: `repo:${repo} is:pr is:${state}` }
                       )
                   }
                   else if(label === "stale") {
                       results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repo} is:pr is:${criteria} created:<${date("-90 days")}`}
+                      { q: `repo:${repo} is:pr is:${state} created:<${date("-90 days")}`}
                       )
                   }
                   else{
                     results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo} is:pr is:${criteria} label:${label}`}
+                    { q: `repo:${repo} is:pr is:${state} label:${label}`}
                     )
                   }
                   if(results.data.items.length === 0){
@@ -50,21 +50,21 @@ jobs:
                   }
                 }
                 userdata.url = async function(repo,label) {
-                  const criteria = (label==="closed")? "closed" : "open"
+                  const state = (label==="closed")? "closed" : "open"
                   var url;
                   if(label === "" || label === "closed") {
-                  url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+criteria
+                  url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+ state
                   }
                   else if(label === "stale") {
                     var today = new Date();
                     var PastDate=new Date(today);
                     PastDate.setDate(PastDate.getDate() - 90);
                     var staledate = PastDate.toISOString().split("T")[0];
-                    url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + criteria + '+created%3A<'+staledate+'+'
+                    url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + state + '+created%3A<'+staledate+'+'
 
                   }
                   else{
-                    url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+criteria+'+label%3A'+label
+                    url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+state+'+label%3A'+label
                   }
                   return url
                 } 
