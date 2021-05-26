@@ -17,7 +17,7 @@ jobs:
               format: html
               filename: 'summary.html'
             setup: | 
-                  userdata.values = async function(itemType,label) {
+                  userdata.count = async function(itemType,label) {
                   const repos = 'repo: Azure/login repo: Azure/arm-deploy'
                   const filter = label
                   const item = itemType
@@ -55,13 +55,13 @@ jobs:
               widgets:
               - type: 'number'
                 title: 'Total issues'
-                issue_query: '{{ userdata.values("issue","") }}'
+                issue_query: '{{ userdata.count("issue","") }}'
               - type: 'number'
                 title: 'Idle issues(inactive >14days)'
-                issue_query: '{{ userdata.values("issue","idle") }}'
+                issue_query: '{{ userdata.count("issue","idle") }}'
               - type: 'number'
                 title: 'P0 bugs'
-                issue_query: '{{ userdata.values("issue","P0") }}'
+                issue_query: '{{ userdata.count("issue","P0") }}'
               - type: 'number'
                 title: 'P1 bugs'
                 issue_query: 'repo:Azure/functions-action is:open is:issue'
