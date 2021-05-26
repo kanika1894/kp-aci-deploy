@@ -36,6 +36,7 @@ a {
 div#analytics h1 {
     width: 900px;
     margin: 50px 50px 30px 50px;
+    background-color: #4D9294
 }
 div#main_description {
     width: 900px;
@@ -110,7 +111,7 @@ div.number_widget {
     margin: 0 5px 5px 0;
     float: left;
     position: relative;
-    background-color: #ffffff;
+    background-color: #A8DEDB;
     border: solid 1px #dddddd;
     color: #000000;
 }
@@ -163,7 +164,7 @@ div.number_widget .value {
 div.string_widget {
     width: 558px;
     padding: 15px 20px;
-    background-color: #ffffff;
+    background-color: #81B7B4;
     border: solid 1px #dddddd;
     color: #000000;
 }
