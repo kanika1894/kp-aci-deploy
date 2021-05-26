@@ -70,10 +70,8 @@ jobs:
                 } 
               
           sections:
-          - title: 'PR'
             widgets:
             - type: 'table'
-              title: 'actions wise PRs'
               headers:
               - 'Action'
               - 'Open PR'
