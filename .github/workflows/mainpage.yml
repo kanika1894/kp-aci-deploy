@@ -114,13 +114,13 @@ jobs:
                 url: '{{ userdata.url("pr","closed") }}'
                 
             - title: 'Details'
-                widgets:
-                - type: 'string'
-                  value: 'Issues detailed information'
-                  url: 'https://kanika1894.github.io/kp-aci-deploy'
-                - type: 'string'
-                  value: 'PR detailed information'
-                  url: 'https://kanika1894.github.io/kp-aci-deploy/pr.html'
+              widgets:
+              - type: 'string'
+                value: 'Issues detailed information'
+                url: 'https://kanika1894.github.io/kp-aci-deploy'
+              - type: 'string'
+                value: 'PR detailed information'
+                url: 'https://kanika1894.github.io/kp-aci-deploy/pr.html'
 
           token: '${{ github.token }}'
       - name: Commit files
