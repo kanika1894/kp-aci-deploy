@@ -23,17 +23,17 @@ jobs:
                     var results
                     if(label === "") {
                         results = await github.search.issuesAndPullRequests(
-                        { q: `${repos} is:${itemType} is:{state}`}
+                        { q: `${repos} is:${itemType} is:${state}`}
                         )
                     }
                     else if(label === "stale") {
                       results = await github.search.issuesAndPullRequests(
-                      { q: `${repos} is:${itemType} is:{state} created:<${date("-90 days")}`}
+                      { q: `${repos} is:${itemType} is:${state} created:<${date("-90 days")}`}
                       )
                     } 
                     else{
                       results = await github.search.issuesAndPullRequests(
-                      { q: `${repos} is:${itemType} is:{state} label:${label}`}
+                      { q: `${repos} is:${itemType} is:${state} label:${label}`}
                       )
                     }
                     if(results.data.items.length === 0){
@@ -88,7 +88,7 @@ jobs:
                 value: '{{ userdata.count("issue","") }}'
                 url: '{{ userdata.url("issue","") }}'
                 
-            - title: 'PRs'
+            - title: 'Pull Requests'
               widgets:
               - type: 'number'
                 title: 'Open'
