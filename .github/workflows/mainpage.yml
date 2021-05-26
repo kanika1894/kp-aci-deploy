@@ -67,7 +67,7 @@ jobs:
             - title: 'Issues'
               widgets:
               - type: 'number'
-                title: 'Idle issues(inactive >14days)'
+                title: 'Idle (inactive >14days)'
                 value: '{{ userdata.count("issue","idle") }}'
                 url: '{{ userdata.url("issue","idle") }}'
               - type: 'number'
@@ -118,9 +118,10 @@ jobs:
           token: '${{ github.token }}'
       - name: Commit files
         id: commit
+        continue-on-error: true # commit will fail if the code wasn't changed. Prevent the build to fail in this case.
         run: |
-          git config --local user.email "kanika1894@github.com"
-          git config --local user.name "kanika1894"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git pull
           git add --all
           if [-z "$(git status --porcelain)"]; then
