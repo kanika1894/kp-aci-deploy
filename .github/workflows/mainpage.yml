@@ -17,7 +17,7 @@ jobs:
               format: html
               filename: 'mainpage.html'
             setup: | 
-                  item.count = async function(itemType,label) {
+                  userdata.count = async function(itemType,label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
                     var results
                     if(label === "") {
@@ -48,7 +48,7 @@ jobs:
                     }
                   }
                   
-                  item.url = async function(itemType,label) {
+                  userdata.url = async function(itemType,label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
                     var prlink;
                     if(label === "") {
@@ -75,43 +75,43 @@ jobs:
               widgets:
               - type: 'number'
                 title: 'Idle issues(inactive >14days)'
-                value: '{{ item.count("issue","idle") }}'
-                url: '{{ item.url("issue","idle") }}'
+                value: '{{ userdata.count("issue","idle") }}'
+                url: '{{ userdata.url("issue","idle") }}'
               - type: 'number'
                 title: 'P0 bugs'
-                value: '{{ item.count("issue","P0") }}'
-                url: '{{ item.url("issue","P0") }}'
+                value: '{{ userdata.count("issue","P0") }}'
+                url: '{{ userdata.url("issue","P0") }}'
               - type: 'number'
                 title: 'P1 bugs'
-                value: '{{ item.count("issue","P1") }}'
-                url: '{{ item.url("issue","P1") }}'
+                value: '{{ userdata.count("issue","P1") }}'
+                url: '{{ userdata.url("issue","P1") }}'
               - type: 'number'
                 title: 'Enhancements'
-                value: '{{ item.count("issue","enhancement") }}'
-                url: '{{ item.url("issue","enhancement") }}'
+                value: '{{ userdata.count("issue","enhancement") }}'
+                url: '{{ userdata.url("issue","enhancement") }}'
               - type: 'number'
                 title: 'Total issues'
-                value: '{{ item.count("issue","") }}'
-                url: '{{ item.url("issue","") }}'
+                value: '{{ userdata.count("issue","") }}'
+                url: '{{ userdata.url("issue","") }}'
                 
             - title: 'PRs'
               widgets:
               - type: 'number'
                 title: 'Open'
-                value: '{{ item.count("pr","") }}'
-                url: '{{ item.url("pr","") }}'
+                value: '{{ userdata.count("pr","") }}'
+                url: '{{ userdata.url("pr","") }}'
               - type: 'number'
                 title: 'Idle (inactive >14days)'
-                value: '{{ item.count("pr","idle") }}'
-                url: '{{ item.url("pr","idle") }}'
+                value: '{{ userdata.count("pr","idle") }}'
+                url: '{{ userdata.url("pr","idle") }}'
               - type: 'number'
                 title: 'Stale (90 days old)'
-                value: '{{ item.count("pr","stale") }}'
-                url: '{{ item.url("pr","stale") }}' 
+                value: '{{ userdata.count("pr","stale") }}'
+                url: '{{ userdata.url("pr","stale") }}' 
               - type: 'number'
                 title: 'Closed'
-                value: '{{ item.count("pr","closed") }}'
-                url: '{{ item.url("pr","closed") }}'
+                value: '{{ userdata.count("pr","closed") }}'
+                url: '{{ userdata.url("pr","closed") }}'
                 
             - title: 'Details'
               widgets:
@@ -142,3 +142,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: '${{ secrets.GITHUB_TOKEN }}'
+
