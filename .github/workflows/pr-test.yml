@@ -81,7 +81,7 @@ jobs:
               - 'Idle PR(inactive > 14 days)'	
               - 'Closed PR'
               elements:
-              - - value: 'Azure login
+              - - value: 'Azure login'
                 - value: '{{ userdata.count("Azure/login","") }}'
                   url: '{{ userdata.url("Azure/login","") }}'
                 - value: '{{ userdata.count("Azure/login","stale") }}'
