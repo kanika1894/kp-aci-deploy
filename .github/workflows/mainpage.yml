@@ -117,9 +117,11 @@ jobs:
               widgets:
               - type: 'table'
                 elements:
-                - - value: 'Issues detailed view'
+                - - value: ''
+                  - value: 'Issues detailed view'
                   - url: 'https://kanika1894.github.io/kp-aci-deploy'
-                - - value: 'PR detailed view'
+                - - value: ''
+                  - value: 'PR detailed view'
                   - url: 'https://kanika1894.github.io/kp-aci-deploy/pr.html'  
               
 
