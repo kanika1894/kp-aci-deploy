@@ -86,10 +86,9 @@ jobs:
                 return prlink
               } 
           sections:
-          - title: 'label-wise'
+          - title: ''
             widgets:
             - type: 'table'
-              title: 'label-wise'
               headers:
               - 'action'
               - 'open issues'
