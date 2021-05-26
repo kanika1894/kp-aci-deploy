@@ -17,7 +17,7 @@ jobs:
               format: html
               filename: 'main.html'
             setup: | 
-                  const repos = 'repo:azure/login repo:azure/arm-deploy repo:azure/aci-deploy'
+                  const repos = 'repo:Azure/login repo:Azure/webapps-deploy repo:Azure/aci-deploy repo:build-vm-image repo:Azure/deploy-to-azure-cli-extension repo:Azure/functions-action repo:Azure/functions-container-action repo:Azure/mysql repo:Azure/postgresql repo:Azure/powershell repo:Azure/sql-action'
                   userdata.count = async function(itemType,label) {
                     const state = (label==="closed")? "closed" : "open"
                     var results
