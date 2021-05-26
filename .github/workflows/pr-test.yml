@@ -70,7 +70,7 @@ jobs:
                 } 
               
           sections:
-            - title: '' 
+          - title: '' 
             widgets:
             - type: 'table'
               headers:
