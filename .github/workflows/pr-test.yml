@@ -58,7 +58,7 @@ jobs:
                   else if(label === "stale") {
                     var today = new Date();
                     var PastDate=new Date(today);
-                    PastDate.setDate(myPastDate.getDate() - 90);
+                    PastDate.setDate(PastDate.getDate() - 90);
                     var staledate = PastDate.toISOString().split("T")[0];
                     url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + criteria + '+created%3A<'+staledate+'+'
 
