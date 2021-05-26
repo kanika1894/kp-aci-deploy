@@ -18,7 +18,7 @@ jobs:
               filename: 'main.html'
             setup: | 
                   userdata.count = async function(itemType,label) {
-                    const repos = 'repo:Azure/login repo:Azure/aci-deploy'
+                    const repos = 'repo:Azure/login repo:Azure/aci-deploy repo:Azure/webapps-deploy'
                     const state = (label==="closed")? "closed" : "open"
                     var results
                     if(label === "") {
@@ -45,7 +45,7 @@ jobs:
                   }
                   
                   userdata.url = async function(itemType,label) {
-                    const repos = 'repo:Azure/login repo:Azure/aci-deploy'
+                    const repos = 'repo:Azure/login repo:Azure/aci-deploy repo:Azure/webapps-deploy'
                     const state = (label==="closed")? "closed" : "open"
                     var url;
                     if(label === "") {
