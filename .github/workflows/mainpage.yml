@@ -19,25 +19,21 @@ jobs:
             setup: | 
                   userdata.count = async function(itemType,label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
+                    const state = (label==="closed")? "closed" : "open"
                     var results
                     if(label === "") {
                         results = await github.search.issuesAndPullRequests(
-                        { q: `${repos} is:${itemType} is:open`}
+                        { q: `${repos} is:${itemType} is:{state}`}
                         )
                     }
                     else if(label === "stale") {
                       results = await github.search.issuesAndPullRequests(
-                      { q: `${repos} is:${itemType} is:open created:<${date("-90 days")}`}
+                      { q: `${repos} is:${itemType} is:{state} created:<${date("-90 days")}`}
                       )
                     } 
-                    else if(label === "closed") {
-                      results = await github.search.issuesAndPullRequests(
-                      { q: `${repos} is:${itemType} is:closed`}
-                      )
-                    }
                     else{
                       results = await github.search.issuesAndPullRequests(
-                      { q: `${repos} is:${itemType} is:open label:${label}`}
+                      { q: `${repos} is:${itemType} is:{state} label:${label}`}
                       )
                     }
                     if(results.data.items.length === 0){
@@ -50,24 +46,22 @@ jobs:
                   
                   userdata.url = async function(itemType,label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
-                    var prlink;
+                    const state = (label==="closed")? "closed" : "open"
+                    var url;
                     if(label === "") {
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen'
+                      url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen' 
                     }
                     else if(label === "stale") {
                       var today = new Date();
-                      var myPastDate=new Date(today);
-                      myPastDate.setDate(myPastDate.getDate() - 90);
+                      var pastDate = new Date(today);
+                      pastDate.setDate(pastDate.getDate() - 90);
                       var staledate = myPastDate.toISOString().split("T")[0];
-                      prlink = 'https://github.com/search?q=' + repos + '+is%3A' + itemType + '+is%3Aopen' + '+created%3A<'+ staledate
-                    }
-                    else if(label === "closed") {
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3A' + itemType + '+is%3Aclosed'
+                      url = 'https://github.com/search?q=' + repos + '+is%3A' + itemType + '+is%3A' + state + '+created%3A<'+ staledate
                     }
                     else{
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen' + '+label%3A' + label
+                      url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3A' + '+label%3A' + label
                     }
-                    return prlink
+                    return url
                   } 
 
             sections:
