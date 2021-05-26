@@ -12,13 +12,13 @@ jobs:
         uses: ethomson/issue-dashboard@v1
         with:
           config: |
-            title: 'Health Dashboard'
+            title: 'Health Dashboard test'
             output:
               format: html
               filename: 'main.html'
             setup: | 
                   userdata.count = async function(itemType,label) {
-                    const repos = 'repo:Azure/login repo:Azure/aci-deploy repo:Azure/webapps-deploy'
+                    const repos = 'repo:azure/login repo:azure/aci-deploy repo:azure/webapps-deploy'
                     const state = (label==="closed")? "closed" : "open"
                     var results
                     if(label === "") {
