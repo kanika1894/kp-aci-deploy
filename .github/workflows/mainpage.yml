@@ -50,24 +50,24 @@ jobs:
                     }
                   }
                   
-                  userdata.pullurl = async function(label) {
+                  userdata.url = async function(item,label) {
                     const repos = 'repo:Azure/login repo:Azure/aci-deploy'
                     var prlink;
                     if(label === "") {
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3Apr'+ '+is%3Aopen'
+                      prlink = 'https://github.com/search?q='+ repos + '+is%3A'+ item + '+is%3Aopen'
                     }
                     else if(label === "stale") {
                       var today = new Date();
                       var myPastDate=new Date(today);
                       myPastDate.setDate(myPastDate.getDate() - 90);
                       var staledate = myPastDate.toISOString().split("T")[0];
-                      prlink = 'https://github.com/search?q=' + repos + '+is%3Apr' + '+is%3Aopen' + '+created%3A<'+ staledate+'+'
+                      prlink = 'https://github.com/search?q=' + repos + '+is%3A' + item + '+is%3Aopen' + '+created%3A<'+ staledate
                     }
                     else if(label === "closed") {
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3Apr'+ '+is%3Aclosed'
+                      prlink = 'https://github.com/search?q='+ repos + '+is%3A' + item + '+is%3Aclosed'
                     }
                     else{
-                      prlink = 'https://github.com/search?q='+ repos + '+is%3Apr'+ '+is%3Aopen' + '+label%3A' + label
+                      prlink = 'https://github.com/search?q='+ repos + '+is%3A'+ item + '+is%3Aopen' + '+label%3A' + label
                     }
                     return prlink
                   } 
@@ -78,37 +78,42 @@ jobs:
               - type: 'number'
                 title: 'Total issues'
                 value: '{{ userdata.values("issue","") }}'
+                url: '{{ userdata.url("issue","") }}'
               - type: 'number'
                 title: 'Idle issues(inactive >14days)'
                 value: '{{ userdata.values("issue","idle") }}'
+                url: '{{ userdata.url("issue","idle") }}'
               - type: 'number'
                 title: 'P0 bugs'
                 value: '{{ userdata.values("issue","P0") }}'
+                url: '{{ userdata.url("issue","P0") }}'
               - type: 'number'
                 title: 'P1 bugs'
                 value: '{{ userdata.values("issue","P1") }}'
+                url: '{{ userdata.url("issue","P1") }}'
               - type: 'number'
                 title: 'Enhancements'
                 value: '{{ userdata.values("issue","enhancement") }}'
+                url: '{{ userdata.url("issue","enhancement") }}'
                 
             - title: 'PRs'
               widgets:
               - type: 'number'
                 title: 'Open'
                 value: '{{ userdata.values("pr","") }}'
-                url: '{{ userdata.pullurl("") }}'
+                url: '{{ userdata.url("pr","") }}'
               - type: 'number'
                 title: 'Idle (inactive >14days)'
                 value: '{{ userdata.values("pr","idle") }}'
-                url: '{{ userdata.pullurl("idle") }}'
+                url: '{{ userdata.url("pr","idle") }}'
               - type: 'number'
                 title: 'Stale (90 days old)'
                 value: '{{ userdata.values("pr","stale") }}'
-                url: '{{ userdata.pullurl("stale") }}'
+                url: '{{ userdata.url("pr","stale") }}' 
               - type: 'number'
                 title: 'Closed'
                 value: '{{ userdata.values("pr","closed") }}'
-                url: '{{ userdata.pullurl("closed") }}'
+                url: '{{ userdata.url("pr","closed") }}'
                     
           token: '${{ github.token }}'
       - name: Commit files
