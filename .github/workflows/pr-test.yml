@@ -19,7 +19,7 @@ jobs:
       uses: ethomson/issue-dashboard@v1
       with:
         config: |
-          title: 'PR Dashboard sections update'
+          title: 'Pull requests detailed view'
           output:
             format: html
             filename: 'pr.html'

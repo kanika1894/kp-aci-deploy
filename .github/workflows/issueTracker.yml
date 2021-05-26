@@ -19,7 +19,7 @@ jobs:
       uses: ethomson/issue-dashboard@v1
       with:
         config: |
-          title: 'Dashboard'
+          title: 'Issues detailed view'
           output:
             format: html
             filename: 'issue.html'
