@@ -91,7 +91,7 @@ jobs:
                       const results = await github.search.issuesAndPullRequests(
                       { q: `repo:${repo1} is:issue is:open label:need-to-triage created:>${date('-365 day')}`}
                       ) 
-                      return {{ value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'},
+                      return { { value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'},
                               { value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'} }
                               
 
