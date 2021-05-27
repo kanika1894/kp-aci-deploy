@@ -15,7 +15,7 @@ jobs:
             title: 'Health Dashboard'
             output:
               format: html
-              filename: 'main.html'
+              filename: 'health-dashboard.html'
             setup: | 
                   const repos = 'repo:Azure/login repo:Azure/webapps-deploy repo:Azure/aci-deploy repo:build-vm-image repo:Azure/deploy-to-azure-cli-extension repo:Azure/functions-action repo:Azure/functions-container-action repo:Azure/mysql repo:Azure/postgresql repo:Azure/powershell repo:Azure/sql-action'
                   userdata.count = async function(itemType,label) {
@@ -58,11 +58,10 @@ jobs:
                       url = 'https://github.com/search?q=' + repos + '+is%3A' + itemType + '+is%3A' + state + '+created%3A<'+ staledate
                     }
                     else{
-                      url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3A' + '+label%3A' + label
+                      url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3A' + state + '+label%3A' + label
                     }
                     return url
                   } 
-
             sections:
             - title: 'Issues'
               widgets:
