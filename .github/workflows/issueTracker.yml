@@ -18,29 +18,28 @@ jobs:
               filename: 'issue.html'
             setup: |
                 function sleep(milliseconds) {
-                    const date = Date.now();
-                    let currentDate = null;
-                    do {currentDate = Date.now();} 
-                    while (currentDate - date < milliseconds);
+                  const date = Date.now();
+                  let currentDate = null;
+                  do {currentDate = Date.now();} 
+                  while (currentDate - date < milliseconds);
                 }
                 userdata.count = async function(repo,label) {
                   sleep(2000)
                   var results;
                   if(label === "" ) {
-                      results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repo} is:issue is:open` }
-                      )
+                    results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo} is:issue is:open` }
+                    )
                   }
                   else if(label === "closed"){
-                      results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repo} is:issue is:closed closed:>${date("-30 days")}`}
-                      )
-
+                    results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo} is:issue is:closed closed:>${date("-30 days")}`}
+                    )
                   }
                   else if(label === "stale") {
-                      results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repo} is:issue is:open created:<${date("-90 days")}`}
-                      )
+                    results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo} is:issue is:open created:<${date("-90 days")}`}
+                    )
                   }
                   else{
                     results = await github.search.issuesAndPullRequests(
@@ -58,7 +57,7 @@ jobs:
                   sleep(2000)
                   var url;
                   var today = new Date();
-                  var PastDate = new Date(today);
+                  var pastDate = new Date(today);
                   if(label === "" ) {
                     url = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3A'+ 'open'
                   }
