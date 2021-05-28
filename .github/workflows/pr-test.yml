@@ -92,8 +92,8 @@ jobs:
               headers:
               - 'Action'
               - 'Open'
-              - 'Idle PR(inactive > 14 days)'	
-              - 'Stale PR(90 days old)'
+              - 'Idle(inactive>14days)'	
+              - 'Stale(90 days old)'
               - 'Closed(last 30 days)'
               elements:
               - - value: 'azure login'
