@@ -65,16 +65,18 @@ jobs:
                   var url;
                   var today = new Date();
                   var PastDate = new Date(today);
-                  
+
                   if(label === "") {
                     url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+ 'open'
                   }
                   else if(label === "closed") {
+                    var PastDate = new Date(today);
                     pastDate.setDate(pastDate.getDate() - 30);
                     var closedDate = pastDate.toISOString().split("T")[0];
                     url = 'https://github.com/' + repo + '/pulls?q=is%3Aissue+is%3A' + 'closed' + '+closed%3A>'+ closedDate
                   }
                   else if(label === "stale") {
+                    var PastDate = new Date(today);
                     PastDate.setDate(PastDate.getDate() - 90);
                     var staledate = PastDate.toISOString().split("T")[0];
                     url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + 'open' + '+created%3A<'+staledate
