@@ -58,7 +58,7 @@ jobs:
                   sleep(2000)
                   var url;
                   var today = new Date();
-                  var PastDate=new Date(today);
+                  var PastDate = new Date(today);
                   if(label === "" ) {
                     url = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3A'+ 'open'
                   }
