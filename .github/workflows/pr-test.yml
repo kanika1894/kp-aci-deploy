@@ -93,8 +93,8 @@ jobs:
               - 'Action'
               - 'Open'
               - 'Idle(inactive>14days)'	
-              - 'Stale(90 days old)'
-              - 'Closed(last 30 days)'
+              - 'Stale(90_days_old)'
+              - 'Closed(last_30_days)'
               elements:
               - - value: 'azure login'
                 - value: '{{ userdata.count("Azure/login","") }}'
