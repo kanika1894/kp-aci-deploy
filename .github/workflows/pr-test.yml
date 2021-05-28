@@ -76,7 +76,7 @@ jobs:
                   }
                   else if(label === "stale") {
                     pastDate.setDate(pastDate.getDate() - 90);
-                    var staledate = PastDate.toISOString().split("T")[0];
+                    var staledate = pastDate.toISOString().split("T")[0];
                     url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + 'open' + '+created%3A<'+staledate
                   }
                   else{
