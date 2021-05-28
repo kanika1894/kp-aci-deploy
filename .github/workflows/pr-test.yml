@@ -64,7 +64,7 @@ jobs:
                   sleep(1000)
                   var url;
                   var today = new Date();
-                  var PastDate=new Date(today);
+                  var PastDate = new Date(today);
                   if(label === "") {
                     url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+ 'open'
                   }
