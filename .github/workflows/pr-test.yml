@@ -40,7 +40,7 @@ jobs:
                   }
                   else if(label === "closed") {
                     results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo} is:pr is:closed created:<${date("-30 days")}`}
+                    { q: `repo:${repo} is:pr is:closed closed:>${date("-30 days")}`}
                     )
                   }
                   else if(label === "stale") {
