@@ -24,30 +24,33 @@ jobs:
             format: html
             filename: 'pr.html'
           setup: |
+                function sleep(milliseconds) {
+                    const date = Date.now();
+                    let currentDate = null;
+                    do {currentDate = Date.now();} 
+                    while (currentDate - date < milliseconds);
+                }
                 userdata.count = async function(repo,label) {
-                  function sleep(milliseconds) {
-                  const date = Date.now();
-                  let currentDate = null;
-                  do {
-                    currentDate = Date.now();
-                  } while (currentDate - date < milliseconds);
-                  }
                   sleep(1000)
-                  const state = (label==="closed")? "closed" : "open"
                   var results;
-                  if(label === "" || label === "closed") {
-                      results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repo} is:pr is:${state}` }
-                      )
+                  if(label === "" ) {
+                    results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo} is:pr is:open` }
+                    )
+                  }
+                  else if(label === "closed") {
+                    results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo} is:pr is:closed created:<${date("-30 days")}`}
+                    )
                   }
                   else if(label === "stale") {
-                      results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repo} is:pr is:${state} created:<${date("-90 days")}`}
-                      )
+                    results = await github.search.issuesAndPullRequests(
+                    { q: `repo:${repo} is:pr is:open created:<${date("-90 days")}`}
+                    )
                   }
                   else{
                     results = await github.search.issuesAndPullRequests(
-                    { q: `repo:${repo} is:pr is:${state} label:${label}`}
+                    { q: `repo:${repo} is:pr is:open label:${label}`}
                     )
                   }
                   if(results.data.items.length === 0){
@@ -58,29 +61,25 @@ jobs:
                   }
                 }
                 userdata.url = async function(repo,label) {
-                  function sleep(milliseconds) {
-                  const date = Date.now();
-                  let currentDate = null;
-                  do {
-                    currentDate = Date.now();
-                  } while (currentDate - date < milliseconds);
-                  }
                   sleep(1000)
-                  const state = (label==="closed")? "closed" : "open"
                   var url;
-                  if(label === "" || label === "closed") {
-                  url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+ state
+                  var today = new Date();
+                  var PastDate=new Date(today);
+                  if(label === "") {
+                    url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+ 'open'
+                  }
+                  else if(label === "closed") {
+                    pastDate.setDate(pastDate.getDate() - 30);
+                    var closedDate = pastDate.toISOString().split("T")[0];
+                    url = 'https://github.com/' + repo + '/pulls?q=is%3Aissue+is%3A' + 'closed' + '+closed%3A>'+ closedDate
                   }
                   else if(label === "stale") {
-                    var today = new Date();
-                    var PastDate=new Date(today);
                     PastDate.setDate(PastDate.getDate() - 90);
                     var staledate = PastDate.toISOString().split("T")[0];
-                    url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + state + '+created%3A<'+staledate+'+'
-
+                    url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + 'open' + '+created%3A<'+staledate
                   }
                   else{
-                    url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+state+'+label%3A'+label
+                    url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'+'+label%3A'+label
                   }
                   return url
                 } 
@@ -91,12 +90,12 @@ jobs:
             - type: 'table'
               headers:
               - 'Action'
-              - 'Open PR'
+              - 'Open'
               - 'Stale PR(90 days old)'
               - 'Idle PR(inactive > 14 days)'	
-              - 'Closed PR'
+              - 'Closed(last 30 days)'
               elements:
-              - - value: 'Azure login'
+              - - value: 'azure login'
                 - value: '{{ userdata.count("Azure/login","") }}'
                   url: '{{ userdata.url("Azure/login","") }}'
                 - value: '{{ userdata.count("Azure/login","stale") }}'
