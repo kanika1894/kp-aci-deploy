@@ -33,6 +33,7 @@ jobs:
           days-before-stale: 14
           days-before-close: -1
           operations-per-run: 100
+          exempt-issue-labels: "backlog"
           
       - uses: actions/stale@v3
         name: Setting PR as idle
