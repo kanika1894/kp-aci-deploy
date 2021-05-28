@@ -67,7 +67,7 @@ jobs:
                     url = 'https://github.com/' + repo + '/issues?q=is%3Aissue+is%3A' + 'closed' + '+closed%3A>'+ closedDate
                   }
                   else if(label === "stale") {
-                    PastDate.setDate(PastDate.getDate() - 90);
+                    pastDate.setDate(pastDate.getDate() - 90);
                     var staledate = PastDate.toISOString().split("T")[0];
                     url = 'https://github.com/' + repo + '/issues?q=is%3Aissue+is%3A' + 'open' + '+created%3A<'+staledate
                   }
