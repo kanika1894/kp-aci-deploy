@@ -54,7 +54,7 @@ jobs:
                   const state = (label==="closed")? "closed" : "open"
                   var url;
                   if(label === "" || label === "closed") {
-                  url = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3A'+ state
+                    url = 'https://github.com/'+repo+'/issues?q=is%3Aissue+is%3A'+ state
                   }
                   else if(label === "stale") {
                     var today = new Date();
