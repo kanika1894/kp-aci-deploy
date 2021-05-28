@@ -27,7 +27,7 @@ jobs:
                     }
                     else if(label === "closed") {
                         results = await github.search.issuesAndPullRequests(
-                        { q: `${repos} is:${itemType} is:closed`}
+                        { q: `${repos} is:${itemType} is:closed closed:>${date("-30 days")`}
                         )
                     }
                     else if(label === "stale") {
@@ -59,7 +59,7 @@ jobs:
                     else if(label === "closed") {
                       pastDate.setDate(pastDate.getDate() - 30);
                       closedDate = pastDate.toISOString().split("T")[0];
-                      url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aclosed' + '+closed%3A<'+ closedDate
+                      url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aclosed' + '+closed%3A>'+ closedDate
                     }
                     else if(label === "stale") {
                       pastDate.setDate(pastDate.getDate() - 90);
