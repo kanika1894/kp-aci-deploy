@@ -7,6 +7,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+        with:
+          ref: 'test'
+          path: 'dashboard'
       - name: Generate Dashboard
         id: dashboard
         uses: ethomson/issue-dashboard@v1
@@ -134,11 +137,9 @@ jobs:
           token: "${{ github.token }}"
       - name: Commit files
         id: commit
-        continue-on-error: true
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git checkout test
           git pull
           git add --all
           if [-z "$(git status --porcelain)"]; then
