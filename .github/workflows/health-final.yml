@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: 'test'
-          path: 'dashboard'
+          path: 'out'
       - name: Generate Dashboard
         id: dashboard
         uses: ethomson/issue-dashboard@v1
@@ -135,22 +135,18 @@ jobs:
                 value: 'PR detailed information'
                 url: 'pr.html'
           token: "${{ github.token }}"
-      - name: Commit files
-        id: commit
+      - name: Publish Documentation
         run: |
-          git config user.email "action@github.com"
-          git config user.name "GitHub Action"
-          git pull
-          git add --all
-          if [-z "$(git status --porcelain)"]; then
-             echo "::set-output name=push::false"
-          else
-             git commit -m "Add changes" -a
-             echo "::set-output name=push::true"
+          git add .
+          git config user.name 'Dashboard User'
+          git config user.email 'nobody@nowhere'
+          git commit -m 'Documentation update' --allow-empty
+          git push origin gh-pages
+        working-directory: out
           fi
         shell: bash
-      - name: Push changes
-        if: steps.commit.outputs.push == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: "${{ secrets.GITHUB_TOKEN }}"
+#       - name: Push changes
+#         if: steps.commit.outputs.push == 'true'
+#         uses: ad-m/github-push-action@master
+#         with:
+#           github_token: "${{ secrets.GITHUB_TOKEN }}"
