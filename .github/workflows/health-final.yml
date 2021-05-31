@@ -8,7 +8,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
         with:
-          ref: 'test'
+          ref: 'gh-pages'
           path: 'out'
       - name: Generate Dashboard
         id: dashboard
@@ -18,7 +18,7 @@ jobs:
             title: 'Health Dashboard'
             output:
               format: html
-              filename: 'health-dashboard.html'
+              filename: 'out/health-dashboard.html'
             setup: | 
                   const repos = 'repo:Azure/login repo:Azure/webapps-deploy repo:Azure/aci-deploy repo:build-vm-image repo:Azure/deploy-to-azure-cli-extension repo:Azure/functions-action repo:Azure/functions-container-action repo:Azure/mysql repo:Azure/postgresql repo:Azure/powershell repo:Azure/sql-action'
                   userdata.count = async function(itemType,label) {
@@ -137,9 +137,9 @@ jobs:
           token: "${{ github.token }}"
       - name: Publish Documentation
         run: |
+          git add .
           git config user.name 'Dashboard User'
           git config user.email 'nobody@nowhere'
-          git add .
           git commit -m 'Documentation update' --allow-empty
           git push origin gh-pages
           fi
