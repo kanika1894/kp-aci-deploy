@@ -1,9 +1,9 @@
 name: setting-labels
 
 # Controls when the action will run. 
-on:
-  schedule:
-  - cron: "0 0/3 * * *"
+on: [workflow_dispatch]
+#   schedule:
+#   - cron: "0 0/3 * * *"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -23,6 +23,7 @@ jobs:
           days-before-stale: 0
           days-before-close: -1
           operations-per-run: 100
+          exempt-issue-labels: 'bug', 'enhancement' 
           
       - uses: actions/stale@v3
         name: Setting issue as idle
