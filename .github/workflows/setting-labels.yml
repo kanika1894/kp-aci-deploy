@@ -23,7 +23,7 @@ jobs:
           days-before-stale: 0
           days-before-close: -1
           operations-per-run: 100
-          only-labels: ''
+          only-issue-labels: ''
 #           exempt-issue-labels: 'bug, enhancement'
           
       - uses: actions/stale@v3
