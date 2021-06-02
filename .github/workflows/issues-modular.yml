@@ -77,7 +77,7 @@ jobs:
                 - 'open issues'
                 - 'need-to-triage'
                 elements:
-                - ['Azure/login', '{{ userdata.count("Azure/login","") }, { userdata.url("Azure/login","") }}', '{{ userdata.count("Azure/login","need-to-triage") }}' ]
+                - ['Azure/login', '{{ userdata.count("Azure/login","") , userdata.url("Azure/login","") }}', '{{ userdata.count("Azure/login","need-to-triage") }}' ]
                               
 
 
