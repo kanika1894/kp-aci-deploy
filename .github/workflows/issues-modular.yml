@@ -86,13 +86,7 @@ jobs:
                 - 'idle(inactive>14days)'
                 - 'stale(90 days old)'
                 elements:
-                - - script: | 
-                      const repo1 = 'Azure/login' 
-                      const results = await github.search.issuesAndPullRequests(
-                      { q: `repo:${repo1} is:issue is:open label:need-to-triage created:>${date('-365 day')}`}
-                      ) 
-                      return { { value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'},
-                              { value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'} }
+                -['Azure/login',{{userdata.count("Azure/login","")}}, {{userdata.count("Azure/login","need-to-triage")}}]
                               
 
 
@@ -116,3 +110,12 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+          
+# - - script: | 
+#                       const repo1 = 'Azure/login' 
+#                       const results = await github.search.issuesAndPullRequests(
+#                       { q: `repo:${repo1} is:issue is:open label:need-to-triage created:>${date('-365 day')}`}
+#                       ) 
+#                       return { { value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'},
+#                               { value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'} }
