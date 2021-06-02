@@ -76,15 +76,6 @@ jobs:
                 - 'action'
                 - 'open issues'
                 - 'need-to-triage'
-                - 'enhancement'
-                - 'question'
-                - 'bug'
-                - 'documentation'
-                - 'performance-issue'
-                - 'waiting-for-customer'
-                - 'external-dependency'
-                - 'idle(inactive>14days)'
-                - 'stale(90 days old)'
                 elements:
                 -['Azure/login',{{userdata.count("Azure/login","")}}, {{userdata.count("Azure/login","need-to-triage")}}]
                               
@@ -119,3 +110,13 @@ jobs:
 #                       ) 
 #                       return { { value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'},
 #                               { value: results.data.total_count ,url: 'https://github.com/Azure/login/issues?q=is%3Aissue+is%3Aopen+label%3Aneed-to-triage'} }
+
+# - 'enhancement'
+#                 - 'question'
+#                 - 'bug'
+#                 - 'documentation'
+#                 - 'performance-issue'
+#                 - 'waiting-for-customer'
+#                 - 'external-dependency'
+#                 - 'idle(inactive>14days)'
+#                 - 'stale(90 days old)'
