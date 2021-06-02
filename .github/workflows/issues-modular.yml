@@ -81,6 +81,8 @@ jobs:
                 - 'need-to-triage'
                 elements:
                 - ['Azure/login', '{{ dict("Azure/login") }}', '{{ userdata.count("Azure/login","need-to-triage") }}' ]
+                - script |
+                      return [{'Azure/login'}, { value: userdata.count("Azure/login","need-to-triage"), url: userdata.url("Azure/login","need-to-triage")}  ]
                               
 
 
