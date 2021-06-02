@@ -23,7 +23,8 @@ jobs:
           days-before-stale: 0
           days-before-close: -1
           operations-per-run: 100
-          exempt-issue-labels: 'bug, enhancement'
+          only-labels: ''
+#           exempt-issue-labels: 'bug, enhancement'
           
       - uses: actions/stale@v3
         name: Setting issue as idle
