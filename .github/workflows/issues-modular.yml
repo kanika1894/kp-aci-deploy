@@ -23,7 +23,7 @@ jobs:
                     do {currentDate = Date.now();} 
                     while (currentDate - date < milliseconds);
                 }
-                userdata.dict =  async function(repo){
+                function dict(repo){
                   return { value: "xxxx", url: "https://github.com"}
                 }
                 userdata.count = async function(repo,label) {
@@ -80,7 +80,7 @@ jobs:
                 - 'open issues'
                 - 'need-to-triage'
                 elements:
-                - ['Azure/login', '{{ userdata.dict("Azure/login")}}', '{{ userdata.count("Azure/login","need-to-triage") }}' ]
+                - ['Azure/login', '{{ dict("Azure/login") }}', '{{ userdata.count("Azure/login","need-to-triage") }}' ]
                               
 
 
