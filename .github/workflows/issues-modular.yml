@@ -24,7 +24,7 @@ jobs:
                     while (currentDate - date < milliseconds);
                 }
                 userdata.dict =  async function(repo){
-                  return(value: "xxxx", url: "https://github.com")
+                  return { value: "xxxx", url: "https://github.com"}
                 }
                 userdata.count = async function(repo,label) {
                   sleep(2000)
