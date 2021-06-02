@@ -23,6 +23,9 @@ jobs:
                     do {currentDate = Date.now();} 
                     while (currentDate - date < milliseconds);
                 }
+                userdata.dict =  async function(repo){
+                  return(value: "xxxx", url: "https://github.com")
+                }
                 userdata.count = async function(repo,label) {
                   sleep(2000)
                   const state = (label==="closed")? "closed" : "open"
@@ -77,7 +80,7 @@ jobs:
                 - 'open issues'
                 - 'need-to-triage'
                 elements:
-                - ['Azure/login', '{{ userdata.count("Azure/login","") , userdata.url("Azure/login","") }}', '{{ userdata.count("Azure/login","need-to-triage") }}' ]
+                - ['Azure/login', '{{ userdata.dict("Azure/login")}}', '{{ userdata.count("Azure/login","need-to-triage") }}' ]
                               
 
 
