@@ -1,4 +1,4 @@
-name: testin_table
+name: issue-view-workflow
 'on':
   - workflow_dispatch
 jobs:
@@ -15,7 +15,7 @@ jobs:
             title: 'Issues detailed view'
             output:
               format: html
-              filename: 'issue.html'
+              filename: 'docs/issue.html'
             setup: |
                 function sleep(milliseconds) {
                   const date = Date.now();
