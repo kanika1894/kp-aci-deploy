@@ -83,7 +83,7 @@ jobs:
                 elements:
                 - [ 'Azure/login', { value: '{{ userdata.count("Azure/login","need-to-triage") }}', url: '{{ userdata.url("Azure/login","need-to-triage") }}' } ]
                 - - script: |
-                      return( {{ userdata.repo("Azure/webapps-deploy") }} )
+                      return( '{{ userdata.repo("Azure/webapps-deploy") }}' )
                               
 
 
