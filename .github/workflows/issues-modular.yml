@@ -82,9 +82,7 @@ jobs:
                 - 'open issues'
                 elements:
                 - [ 'Azure/login', { value: '{{ userdata.count("Azure/login","need-to-triage") }}', url: '{{ userdata.url("Azure/login","need-to-triage") }}' } ]
-                - script: |
-                      const data = {{ userdata.repo("Azure/webapps-deploy") }}
-                      return (data)
+                - '{{ userdata.repo("Azure/webapps-deploy") }}'
                               
 
 
