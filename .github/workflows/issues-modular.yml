@@ -71,7 +71,7 @@ jobs:
                 userdata.repo = async function(repo) {
                   const arr = [repo];
                   //arr.push({ value: userdata.count(repo,"need-to-triage") , url:  userdata.url(repo,"need-to-triage") });
-                  arr.push(userdata.count(repo,"need-to-triage"));
+                  arr.push( userdata.count(repo,"need-to-triage") );
                   console.log(arr);
                   return arr;
                 } 
