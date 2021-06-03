@@ -17,5 +17,5 @@ jobs:
       - uses: dessant/label-actions@v2
         with:
           github-token: ${{ github.token }}
-          config-path: 'setting-labels.yml'
+          config-path: '~/setting-labels.yml'
           process-only: ''
