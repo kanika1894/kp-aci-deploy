@@ -78,7 +78,7 @@ jobs:
                     var today = new Date();
                     var utcTime = today.getTime() + (today.getTimezoneOffset() * 60000);
                     var istTime = new Date(utcTime + (3600000*5.5));
-                    return istTime
+                    return istTime.toLocaleString();
                   }
 
             sections:
