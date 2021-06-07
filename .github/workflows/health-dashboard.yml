@@ -137,8 +137,8 @@ jobs:
                 value: 'PR detailed information'
                 url: 'pr.html'
               - type: 'string'
-                value: 'Last run : {{ userdata.getTime() }}'
-                color: red
+                value: 'Last updated : {{ userdata.getTime() }}'
+                color: black
                 
               
           token: "${{ github.token }}"
