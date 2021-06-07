@@ -73,8 +73,10 @@ jobs:
                   } 
                   
                   userdata.getTime = async function(itemType,label) {
-                    var nowTime = new Date().toLocaleString(); 
-                    return nowTime
+                    var today = new Date();
+                    var utcTime = today.getTime() + (today.getTimezoneOffset() * 60000);
+                    var istTime = new Date(utcTime + (3600000*5.5));
+                    return istTime
                   }
 
             sections:
@@ -137,7 +139,7 @@ jobs:
                 value: 'PR detailed information'
                 url: 'pr.html'
               - type: 'string'
-                value: 'Last updated : {{ userdata.getTime() }}'
+                value: 'Last updated : {{ userdata.getTime() }} IST'
                 color: black
                 
               
