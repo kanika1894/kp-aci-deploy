@@ -71,6 +71,11 @@ jobs:
                     }
                     return url
                   } 
+                  
+                  userdata.getTime = async function(itemType,label) {
+                    var nowTime = new Date().toLocaleString(); 
+                    return nowTime
+                  }
 
             sections:
             - title: 'Issues'
@@ -131,6 +136,11 @@ jobs:
               - type: 'string'
                 value: 'PR detailed information'
                 url: 'pr.html'
+              - type: 'string'
+                value: 'Last run : {{ userdata.getTime() }}'
+                color: red
+                
+              
           token: "${{ github.token }}"
       - name: Commit files
         id: commit
