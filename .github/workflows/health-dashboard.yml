@@ -1,7 +1,7 @@
 name: health-dashboard
 on:
     schedule:
-    - cron: "32 12 * * *"
+    - cron: '50 12 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
