@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Generate Dashboard
+      - name: Generate Dashboards
         id: dashboard
         uses: ethomson/issue-dashboard@v1
         with:
