@@ -4,7 +4,7 @@ name: pr_view_workflow
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 4 * * *"
+    - cron: "30 11 * * *"
 
 jobs:
   build:
