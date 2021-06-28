@@ -19,6 +19,7 @@ jobs:
       uses: ethomson/issue-dashboard@v1 #BALAGA-GAYATRI/issue-dashboard@release-fork
       with:
         config: "./pr-view-config.yml"
+        configType: "file"
         token: ${{ github.token }}
 
     - name: Commit files
