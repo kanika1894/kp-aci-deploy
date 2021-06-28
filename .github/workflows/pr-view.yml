@@ -16,7 +16,7 @@ jobs:
 
     - name: 'Generate Dashboard'
       id: dashboard
-      uses: ethomson/issue-dashboard@v1 #BALAGA-GAYATRI/issue-dashboard@release-fork
+      uses: GH-ACE/issue-dashboard@release/v1 #BALAGA-GAYATRI/issue-dashboard@release-fork
       with:
         config: "./pr-view-config.yml"
         configType: "file"
