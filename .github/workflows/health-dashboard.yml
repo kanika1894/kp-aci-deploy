@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Generate Dashboards
         id: dashboard
-        uses: kanika1894/issue-dashboard@main
+        uses: GH-ACE/issue-dashboard@releases/v1
         with:
           config: abc          
           token: "${{ github.token }}"
