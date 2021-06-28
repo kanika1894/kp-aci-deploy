@@ -62,7 +62,6 @@ setup: |
       }
       return url
     } 
-  
 sections:
 - title: '' 
   widgets:
