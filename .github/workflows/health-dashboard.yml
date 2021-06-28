@@ -11,7 +11,7 @@ jobs:
         id: dashboard
         uses: GH-ACE/issue-dashboard@/v1
         with:
-          config: ./config.yml
+          config: https://github.com/Azure/actions/blob/kanika/config/dashboard-config/health-dashboard-config.yml
           configType: 'file'
           token: "${{ github.token }}"
       - name: Commit files
