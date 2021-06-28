@@ -1,67 +1,67 @@
 title: 'Pull requests detailed view'
 output:
-format: html
-filename: 'docs/pr.html'
-setup: |
-    function sleep(milliseconds) {
-      const date = Date.now();
-      let currentDate = null;
-      do {currentDate = Date.now();} 
-      while (currentDate - date < milliseconds);
-    }
-    userdata.count = async function(repo,label) {
-      sleep(1000)
-      var results;
-      if(label === "" ) {
-        results = await github.search.issuesAndPullRequests(
-        { q: `repo:${repo} is:pr is:open` }
-        )
+  format: html
+  filename: 'docs/pr.html'
+  setup: |
+      function sleep(milliseconds) {
+        const date = Date.now();
+        let currentDate = null;
+        do {currentDate = Date.now();} 
+        while (currentDate - date < milliseconds);
       }
-      else if(label === "closed") {
-        results = await github.search.issuesAndPullRequests(
-        { q: `repo:${repo} is:pr is:closed closed:>${date("-30 days")}`}
-        )
+      userdata.count = async function(repo,label) {
+        sleep(1000)
+        var results;
+        if(label === "" ) {
+          results = await github.search.issuesAndPullRequests(
+          { q: `repo:${repo} is:pr is:open` }
+          )
+        }
+        else if(label === "closed") {
+          results = await github.search.issuesAndPullRequests(
+          { q: `repo:${repo} is:pr is:closed closed:>${date("-30 days")}`}
+          )
+        }
+        else if(label === "stale") {
+          results = await github.search.issuesAndPullRequests(
+          { q: `repo:${repo} is:pr is:open created:<${date("-90 days")}`}
+          )
+        }
+        else{
+          results = await github.search.issuesAndPullRequests(
+          { q: `repo:${repo} is:pr is:open label:${label}`}
+          )
+        }
+        if(results.data.items.length === 0){
+          return '0'
+        }
+        else{
+          return results.data.total_count 
+        }
       }
-      else if(label === "stale") {
-        results = await github.search.issuesAndPullRequests(
-        { q: `repo:${repo} is:pr is:open created:<${date("-90 days")}`}
-        )
-      }
-      else{
-        results = await github.search.issuesAndPullRequests(
-        { q: `repo:${repo} is:pr is:open label:${label}`}
-        )
-      }
-      if(results.data.items.length === 0){
-        return '0'
-      }
-      else{
-        return results.data.total_count 
-      }
-    }
-    userdata.url = async function(repo,label) {
-      sleep(1000)
-      var url;
-      var today = new Date();
-      var pastDate = new Date(today);
-      if(label === "") {
-        url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+ 'open'
-      }
-      else if(label === "closed") {
-        pastDate.setDate(pastDate.getDate() - 30);
-        var closedDate = pastDate.toISOString().split("T")[0];
-        url = 'https://github.com/' + repo + '/pulls?q=is%3Aissue+is%3A' + 'closed' + '+closed%3A>'+ closedDate
-      }
-      else if(label === "stale") {
-        pastDate.setDate(pastDate.getDate() - 90);
-        var staledate = pastDate.toISOString().split("T")[0];
-        url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + 'open' + '+created%3A<'+staledate
-      }
-      else{
-        url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'+'+label%3A'+label
-      }
-      return url
-    } 
+      userdata.url = async function(repo,label) {
+        sleep(1000)
+        var url;
+        var today = new Date();
+        var pastDate = new Date(today);
+        if(label === "") {
+          url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+ 'open'
+        }
+        else if(label === "closed") {
+          pastDate.setDate(pastDate.getDate() - 30);
+          var closedDate = pastDate.toISOString().split("T")[0];
+          url = 'https://github.com/' + repo + '/pulls?q=is%3Aissue+is%3A' + 'closed' + '+closed%3A>'+ closedDate
+        }
+        else if(label === "stale") {
+          pastDate.setDate(pastDate.getDate() - 90);
+          var staledate = pastDate.toISOString().split("T")[0];
+          url = 'https://github.com/' + repo + '/pulls?q=is%3Apr+is%3A' + 'open' + '+created%3A<'+staledate
+        }
+        else{
+          url = 'https://github.com/'+repo+'/pulls?q=is%3Apr+is%3A'+'open'+'+label%3A'+label
+        }
+        return url
+      } 
 sections:
 - title: '' 
   widgets:
