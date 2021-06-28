@@ -15,7 +15,7 @@ jobs:
 
     - name: 'Generate Dashboard'
       id: dashboard
-      uses: BALAGA-GAYATRI/issue-dashboard@realease-fork
+      uses: BALAGA-GAYATRI/issue-dashboard@release-fork
       with:
         config: pr-view-config.yml
         token: ${{ github.token }}
