@@ -1,8 +1,8 @@
-title: 'Health Dashboard'
+title: "Health Dashboard"
 output:
   format: html
-  filename: 'docs/health-dashboard.html'
-setup: | 
+  filename: "docs/health-dashboard.html"
+setup: |
   const repos = 'repo:Azure/login repo:Microsoft/variable-substitution repo:Azure/appservice-settings repo:Azure/webapps-deploy repo:Azure/aci-deploy repo:build-vm-image repo:Azure/deploy-to-azure-cli-extension repo:Azure/functions-action repo:Azure/functions-container-action repo:Azure/mysql repo:Azure/postgresql repo:Azure/powershell repo:Azure/sql-action repo:Azure/policy-compliance-scan repo:Azure/k8s-create-secret repo:Azure/k8s-lint repo:Azure/k8s-deploy'
   userdata.count = async function(itemType,label) {
     var results
@@ -45,7 +45,7 @@ setup: |
     var today = new Date();
     var pastDate = new Date(today);
     var url, closedDate, staleDate;
-
+    
     if(label === "") {
       if(itemType === "issue") {
         url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen' + ' -label%3Aenhancement'
@@ -77,64 +77,64 @@ setup: |
   }
 
 sections:
-- title: 'Issues'
-  widgets:
-  - type: 'number'
-    title: 'Open (Excluding enhancements)'
-    value: '{{ userdata.count("issue","") }}'
-    url: '{{ userdata.url("issue","") }}'
-  - type: 'number'
-    title: 'Idle (inactive >14days)'
-    value: '{{ userdata.count("issue","idle") }}'
-    url: '{{ userdata.url("issue","idle") }}'
-  - type: 'number'
-    title: 'Stale (90 days old)'
-    value: '{{ userdata.count("issue","stale") }}'
-    url: '{{ userdata.url("issue","stale") }}'
-  - type: 'number'
-    title: 'Closed (last 30 days)'
-    value: '{{ userdata.count("issue","closed") }}'
-    url: '{{ userdata.url("issue","closed") }}'
-  - type: 'number'
-    title: 'P0 bugs'
-    value: '{{ userdata.count("issue","P0") }}'
-    url: '{{ userdata.url("issue","P0") }}'
-  - type: 'number'
-    title: 'P1 bugs'
-    value: '{{ userdata.count("issue","P1") }}'
-    url: '{{ userdata.url("issue","P1") }}'
-  - type: 'number'
-    title: 'Enhancements'
-    value: '{{ userdata.count("issue","enhancement") }}'
-    url: '{{ userdata.url("issue","enhancement") }}'
+  - title: "Issues"
+    widgets:
+      - type: "number"
+        title: "Open (Excluding enhancements)"
+        value: '{{ userdata.count("issue","") }}'
+        url: '{{ userdata.url("issue","") }}'
+      - type: "number"
+        title: "Idle (inactive >14days)"
+        value: '{{ userdata.count("issue","idle") }}'
+        url: '{{ userdata.url("issue","idle") }}'
+      - type: "number"
+        title: "Stale (90 days old)"
+        value: '{{ userdata.count("issue","stale") }}'
+        url: '{{ userdata.url("issue","stale") }}'
+      - type: "number"
+        title: "Closed (last 30 days)"
+        value: '{{ userdata.count("issue","closed") }}'
+        url: '{{ userdata.url("issue","closed") }}'
+      - type: "number"
+        title: "P0 bugs"
+        value: '{{ userdata.count("issue","P0") }}'
+        url: '{{ userdata.url("issue","P0") }}'
+      - type: "number"
+        title: "P1 bugs"
+        value: '{{ userdata.count("issue","P1") }}'
+        url: '{{ userdata.url("issue","P1") }}'
+      - type: "number"
+        title: "Enhancements"
+        value: '{{ userdata.count("issue","enhancement") }}'
+        url: '{{ userdata.url("issue","enhancement") }}'
 
-- title: 'Pull Requests'
-  widgets:
-  - type: 'number'
-    title: 'Open'
-    value: '{{ userdata.count("pr","") }}'
-    url: '{{ userdata.url("pr","") }}'
-  - type: 'number'
-    title: 'Idle (inactive >14days)'
-    value: '{{ userdata.count("pr","idle") }}'
-    url: '{{ userdata.url("pr","idle") }}'
-  - type: 'number'
-    title: 'Stale (90 days old)'
-    value: '{{ userdata.count("pr","stale") }}'
-    url: '{{ userdata.url("pr","stale") }}' 
-  - type: 'number'
-    title: 'Closed (last 30 days)'
-    value: '{{ userdata.count("pr","closed") }}'
-    url: '{{ userdata.url("pr","closed") }}'
+  - title: "Pull Requests"
+    widgets:
+      - type: "number"
+        title: "Open"
+        value: '{{ userdata.count("pr","") }}'
+        url: '{{ userdata.url("pr","") }}'
+      - type: "number"
+        title: "Idle (inactive >14days)"
+        value: '{{ userdata.count("pr","idle") }}'
+        url: '{{ userdata.url("pr","idle") }}'
+      - type: "number"
+        title: "Stale (90 days old)"
+        value: '{{ userdata.count("pr","stale") }}'
+        url: '{{ userdata.url("pr","stale") }}'
+      - type: "number"
+        title: "Closed (last 30 days)"
+        value: '{{ userdata.count("pr","closed") }}'
+        url: '{{ userdata.url("pr","closed") }}'
 
-- title: 'Details'
-  widgets:
-  - type: 'string'
-    value: 'Issues detailed information'
-    url: 'issue.html'
-  - type: 'string'
-    value: 'PR detailed information'
-    url: 'pr.html'
-  - type: 'string'
-    value: 'Last updated : {{ userdata.getTimeStamp() }} IST'
-    color: black                  
+  - title: "Details"
+    widgets:
+      - type: "string"
+        value: "Issues detailed information"
+        url: "issue.html"
+      - type: "string"
+        value: "PR detailed information"
+        url: "pr.html"
+      - type: "string"
+        value: "Last updated : {{ userdata.getTimeStamp() }} IST"
+        color: black
