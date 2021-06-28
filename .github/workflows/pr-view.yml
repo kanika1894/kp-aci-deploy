@@ -2,6 +2,7 @@
 name: pr_view_workflow
 
 on:
+  push:
   workflow_dispatch:
   schedule:
     - cron: "50 11 * * *"
@@ -15,7 +16,7 @@ jobs:
 
     - name: 'Generate Dashboard'
       id: dashboard
-      uses: BALAGA-GAYATRI/issue-dashboard@gayatri #BALAGA-GAYATRI/issue-dashboard@release-fork
+      uses: BALAGA-GAYATRI/issue-dashboard@main #BALAGA-GAYATRI/issue-dashboard@release-fork
       with:
         config: "pr-view-config.yml"
         token: ${{ github.token }}
