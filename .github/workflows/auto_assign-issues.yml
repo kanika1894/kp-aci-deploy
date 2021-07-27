@@ -1,6 +1,15 @@
-addAssignees: true
+name: Issue assignment
 
-# The list of users to assign to new issues. 
-# If empty or not provided, the repository owner is assigned
-assignees:
-  - kanika1894
+on:
+    issues:
+        types: [opened]
+
+jobs:
+    auto-assign:
+        runs-on: ubuntu-latest
+        steps:
+            - name: 'Auto-assign issue'
+              uses: pozil/auto-assign-issue@v1
+              with:
+                  repo-token: ${{ secrets.GITHUB_TOKEN }}
+                  assignees: kanika1894
