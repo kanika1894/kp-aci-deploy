@@ -9,41 +9,6 @@ setup: |
   }
 
   userdata.url = async function(itemType,label) {
-    # var today = new Date();
-    # var pastDate = new Date(today);
-    # var url, closedDate, staleDate;
-    
-    # if(label === "") {
-    #   if(itemType === "issue") {
-    #     url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen' + ' -label%3Aenhancement'
-    #   }
-    #   else {
-    #     url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen'
-    #   }
-    # }
-    # else {
-    #   if(label === "closed") {
-    #     pastDate.setDate(pastDate.getDate() - 30);
-    #     closedDate = pastDate.toISOString().split("T")[0];
-    #     url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aclosed' + '+closed%3A>'+ closedDate
-    #   }
-    #   else if(label === "others") {
-    #     url = 'https://github.com/search?q=' + repos + '+is%3A' + itemType + '+is%3Aopen' + ' -label%3Aenhancement' + ' -label%3AP0' + ' -label%3AP1'
-    #   }
-    #   else if(label === "active") {
-    #     pastDate.setDate(pastDate.getDate() - 30);
-    #     staleDate = pastDate.toISOString().split("T")[0];
-    #     url = 'https://github.com/search?q=' + repos + '+is%3A' + itemType + '+is%3Aopen' + '+created%3A>'+ staleDate
-    #   }
-    #   else if(label === "stale") {
-    #     pastDate.setDate(pastDate.getDate() - 30);
-    #     staleDate = pastDate.toISOString().split("T")[0];
-    #     url = 'https://github.com/search?q=' + repos + '+is%3A' + itemType + '+is%3Aopen' + '+created%3A<'+ staleDate
-    #   }
-    #   else{
-    #     url = 'https://github.com/search?q='+ repos + '+is%3A'+ itemType + '+is%3Aopen' + '+label%3A' + label
-    #   }
-    # return url
     return ''
   } 
   userdata.getTimeStamp = async function(itemType,label) {
