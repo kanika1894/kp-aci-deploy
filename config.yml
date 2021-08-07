@@ -18,31 +18,6 @@ setup: |
     return istTime.toLocaleString();
   }
 
-sections:
-  - title: "Open Issues By Priority"
-    widgets:
-      - type: "number"
-        title: "P0 bugs"
-        value: '{{ userdata.count("issue","P0") }}'
-        url: '{{ userdata.url("issue","P0") }}'
-      - type: "number"
-        title: "P1 bugs"
-        value: '{{ userdata.count("issue","P1") }}'
-        url: '{{ userdata.url("issue","P1") }}'
-      - type: "number"
-        title: "Others"
-        value: '{{ userdata.count("issue","others") }}'
-        url: '{{ userdata.url("issue","others") }}'
-  - title: "Open Issues By Age"
-    widgets:
-      - type: "number"
-        title: "Active"
-        value: '{{ userdata.count("issue","active") }}'
-        url: '{{ userdata.url("issue","active") }}'
-      - type: "number"
-        title: "Stale (30 days old)"
-        value: '{{ userdata.count("issue","stale") }}'
-        url: '{{ userdata.url("issue","stale") }}'
 
   - title: "Details"
     widgets:
