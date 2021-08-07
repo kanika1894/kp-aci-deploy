@@ -1,13 +1,15 @@
 name: health-dashboard
-on: workflow_dispatch
-
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '30 4 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Generate Dashboards
+      - name: Generate Dashboard
         id: dashboard
         uses: GH-ACE/issue-dashboard@v1
         with:
