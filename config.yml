@@ -19,18 +19,6 @@ setup: |
   }
 
 sections:
-  - title: "Issues"
-    widgets:
-      - type: "number"
-        title: "Open (Excluding enhancements)"
-        value: '{{ userdata.count("issue","") }}'
-        url: '{{ userdata.url("issue","") }}'
-        color: yellow
-      - type: "number"
-        title: "Closed (last 30 days)"
-        value: '{{ userdata.count("issue","closed") }}'
-        url: '{{ userdata.url("issue","closed") }}'
-        color: 'red'
   - title: "Open Issues By Priority"
     widgets:
       - type: "number"
