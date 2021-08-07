@@ -1,9 +1,21 @@
-title: "Health Dashboard"
+title: Health Dashboard
 output:
   format: html
-  filename: "docs/health-dashboard.html"
-setup: |
-  const repos = 'repo:Azure/login repo:Microsoft/variable-substitution repo:Azure/appservice-settings repo:Azure/webapps-deploy repo:Azure/aci-deploy repo:build-vm-image repo:Azure/functions-action repo:Azure/functions-container-action repo:Azure/mysql repo:Azure/postgresql repo:Azure/powershell repo:Azure/sql-action repo:Azure/policy-compliance-scan repo:Azure/k8s-create-secret repo:Azure/k8s-lint repo:Azure/k8s-deploy repo:Azure/manage-azure-policy repo:Azure/setup-kubectl repo:Azure/k8s-bake repo:Azure/aks-set-context repo:Azure/k8s-set-context repo:Azure/setup-helm repo:Azure/container-scan repo:Azure/docker-login repo:Azure/publish-security-assessments repo:Azure/static-web-apps-deploy repo:Azure/get-keyvault-secrets repo:Azure/AppConfiguration-Sync repo:Azure/arm-deploy repo:Azure/cli'
+  filename: docs/health-dashboard.html
+setup: >
+  const repos = 'repo:Azure/login repo:Microsoft/variable-substitution
+  repo:Azure/appservice-settings repo:Azure/webapps-deploy repo:Azure/aci-deploy
+  repo:build-vm-image repo:Azure/functions-action
+  repo:Azure/functions-container-action repo:Azure/mysql repo:Azure/postgresql
+  repo:Azure/powershell repo:Azure/sql-action repo:Azure/policy-compliance-scan
+  repo:Azure/k8s-create-secret repo:Azure/k8s-lint repo:Azure/k8s-deploy
+  repo:Azure/manage-azure-policy repo:Azure/setup-kubectl repo:Azure/k8s-bake
+  repo:Azure/aks-set-context repo:Azure/k8s-set-context repo:Azure/setup-helm
+  repo:Azure/container-scan repo:Azure/docker-login
+  repo:Azure/publish-security-assessments repo:Azure/static-web-apps-deploy
+  repo:Azure/get-keyvault-secrets repo:Azure/AppConfiguration-Sync
+  repo:Azure/arm-deploy repo:Azure/cli'
+
   userdata.count = async function(itemType,label) {
     var results
     if(label === "") {
@@ -24,7 +36,7 @@ setup: |
         { q: `${repos} is:${itemType} is:closed closed:>${date("-30 days")}`}
         )
       }
-      else if(label === "others"){
+      else if(label === "others") {
          results = await github.search.issuesAndPullRequests(
          { q: `${repos} is:${itemType} is:open -label:enhancement -label:P0 -label:P1`}
         )
@@ -52,6 +64,7 @@ setup: |
       return results.data.total_count 
     }
   }
+
 
   userdata.url = async function(itemType,label) {
     var today = new Date();
@@ -90,81 +103,78 @@ setup: |
       }
     return url
   } 
+
   userdata.getTimeStamp = async function(itemType,label) {
     var today = new Date();
     var utcTime = today.getTime() + (today.getTimezoneOffset() * 60000);
     var istTime = new Date(utcTime + (3600000*5.5));
     return istTime.toLocaleString();
   }
-
 sections:
-  - title: "Issues"
+  - title: Issues
     widgets:
-      - type: "number"
-        title: "Open (Excluding enhancements)"
+      - type: number
+        title: Open (Excluding enhancements)
         value: '{{ userdata.count("issue","") }}'
         url: '{{ userdata.url("issue","") }}'
         color: yellow
-      - type: "number"
-        title: "Closed (last 30 days)"
+      - type: number
+        title: Closed (last 30 days)
         value: '{{ userdata.count("issue","closed") }}'
         url: '{{ userdata.url("issue","closed") }}'
-        color: 'red'
-  - title: "Open Issues By Priority"
+        color: red
+  - title: Open Issues By Priority
     widgets:
-      - type: "number"
-        title: "P0 bugs"
+      - type: number
+        title: P0 bugs
         value: '{{ userdata.count("issue","P0") }}'
         url: '{{ userdata.url("issue","P0") }}'
-      - type: "number"
-        title: "P1 bugs"
+      - type: number
+        title: P1 bugs
         value: '{{ userdata.count("issue","P1") }}'
         url: '{{ userdata.url("issue","P1") }}'
-      - type: "number"
-        title: "Others"
+      - type: number
+        title: Others
         value: '{{ userdata.count("issue","others") }}'
         url: '{{ userdata.url("issue","others") }}'
-  - title: "Open Issues By Age"
+  - title: Open Issues By Age
     widgets:
-      - type: "number"
-        title: "Active"
+      - type: number
+        title: Active
         value: '{{ userdata.count("issue","active") }}'
         url: '{{ userdata.url("issue","active") }}'
-      - type: "number"
-        title: "Stale (30 days old)"
+      - type: number
+        title: Stale (30 days old)
         value: '{{ userdata.count("issue","stale") }}'
         url: '{{ userdata.url("issue","stale") }}'
-  - title: "Enhancements"
+  - title: Enhancements
     widgets:
-      - type: "number"
-        title: "Enhancements"
+      - type: number
+        title: Enhancements
         value: '{{ userdata.count("issue","enhancement") }}'
         url: '{{ userdata.url("issue","enhancement") }}'
-
-  - title: "Pull Requests"
+  - title: Pull Requests
     widgets:
-      - type: "number"
-        title: "Open"
+      - type: number
+        title: Open
         value: '{{ userdata.count("pr","") }}'
         url: '{{ userdata.url("pr","") }}'
-      - type: "number"
-        title: "Stale (30 days old)"
+      - type: number
+        title: Stale (30 days old)
         value: '{{ userdata.count("pr","stale") }}'
         url: '{{ userdata.url("pr","stale") }}'
-      - type: "number"
-        title: "Closed (last 30 days)"
+      - type: number
+        title: Closed (last 30 days)
         value: '{{ userdata.count("pr","closed") }}'
         url: '{{ userdata.url("pr","closed") }}'
-
-  - title: "Details"
+  - title: Details
     widgets:
-      - type: "string"
-        value: "Issues detailed information"
-        url: "issue.html"
-      - type: "string"
-        value: "PR detailed information"
-        url: "pr.html"
-      - type: "string"
-        value: "Last updated : {{ userdata.getTimeStamp() }} IST"
+      - type: string
+        value: Issues detailed information
+        url: issue.html
+      - type: string
+        value: PR detailed information
+        url: pr.html
+      - type: string
+        value: 'Last updated : {{ userdata.getTimeStamp() }} IST'
         color: black
-        
