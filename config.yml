@@ -51,7 +51,7 @@ setup: |
     # else{
     #   return results.data.total_count 
     # }
-    return 0
+    return '2'
   }
 
   userdata.url = async function(itemType,label) {
