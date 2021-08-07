@@ -55,27 +55,6 @@ sections:
         title: "Stale (30 days old)"
         value: '{{ userdata.count("issue","stale") }}'
         url: '{{ userdata.url("issue","stale") }}'
-  - title: "Enhancements"
-    widgets:
-      - type: "number"
-        title: "Enhancements"
-        value: '{{ userdata.count("issue","enhancement") }}'
-        url: '{{ userdata.url("issue","enhancement") }}'
-
-  - title: "Pull Requests"
-    widgets:
-      - type: "number"
-        title: "Open"
-        value: '{{ userdata.count("pr","") }}'
-        url: '{{ userdata.url("pr","") }}'
-      - type: "number"
-        title: "Stale (30 days old)"
-        value: '{{ userdata.count("pr","stale") }}'
-        url: '{{ userdata.url("pr","stale") }}'
-      - type: "number"
-        title: "Closed (last 30 days)"
-        value: '{{ userdata.count("pr","closed") }}'
-        url: '{{ userdata.url("pr","closed") }}'
 
   - title: "Details"
     widgets:
