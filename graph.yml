@@ -97,7 +97,7 @@ sections:
       issue_query: 'repo:Azure/webapps-deploy is:open is:issue created:{{ date("-90 days") }}..{{ date("-30 days") }}'
       color: 'blue'
     - title: '1 year'
-      issue_query: 'repo:Azure/webapps-deployn is:open is:issue created:{{ date("-1 year") }}..{{ date("-90 days") }}'
+      issue_query: 'repo:Azure/webapps-deploy is:open is:issue created:{{ date("-1 year") }}..{{ date("-90 days") }}'
       color: 'red'
     - title: 'Older ones'
       issue_query: 'repo:Azure/webapps-deploy is:open is:issue created:<{{ date("-1 year") }}'
