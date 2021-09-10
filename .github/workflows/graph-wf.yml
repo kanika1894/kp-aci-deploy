@@ -1,5 +1,5 @@
 
-name: pr_view_workflow
+name: graph-wf
 
 on:
   push:
