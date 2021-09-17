@@ -12,6 +12,6 @@ jobs:
     steps:
     - uses: microsoft/variable-substitution@v1 
       with:
-        files: ././*.json
+        files: '././jsonTest.json'
       env:
         name: "newName"
