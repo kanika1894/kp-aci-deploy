@@ -16,4 +16,4 @@ jobs:
       with:
         files: 'jsonTest.json'
       env:
-        name: "newName"
+        name: 'newName'
