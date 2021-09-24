@@ -40,3 +40,4 @@ jobs:
 
           # Name of the Container Group Instance
           name: kptestcontainernew
+          os-type: windows
