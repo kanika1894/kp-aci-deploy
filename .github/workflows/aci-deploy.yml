@@ -34,7 +34,7 @@ jobs:
           dns-name-label: kptestcontainernext
 
           # Specify the fully qualified container image name. For example, "myregistry.azurecr.io/nginx:latest" or "python:3.7.2-alpine/"
-          image: servercore
+          image: nginx
 
           location: 'centralus'
 
