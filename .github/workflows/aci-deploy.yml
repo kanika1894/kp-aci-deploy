@@ -31,7 +31,7 @@ jobs:
           resource-group: kptestrg249
 
           # The DNS Name Label for Container with Public IP
-          dns-name-label: kptestcontainer
+          dns-name-label: kptestcontainernew
 
           # Specify the fully qualified container image name. For example, "myregistry.azurecr.io/nginx:latest" or "python:3.7.2-alpine/"
           image: nginx:alpine
@@ -39,4 +39,4 @@ jobs:
           location: 'centralus'
 
           # Name of the Container Group Instance
-          name: kptestcontainer
+          name: kptestcontainernew
