@@ -28,10 +28,10 @@ jobs:
         uses: Azure/aci-deploy@v1
         with:
           # Name of the Resource Group in which the Container Instance will be created
-          resource-group: kptestrg101
+          resource-group: kptestrg249
 
           # The DNS Name Label for Container with Public IP
-          dns-name-label: kp-url-for-container
+          dns-name-label: kptestcontainer
 
           # Specify the fully qualified container image name. For example, "myregistry.azurecr.io/nginx:latest" or "python:3.7.2-alpine/"
           image: nginx
@@ -39,4 +39,4 @@ jobs:
           location: 'centralus'
 
           # Name of the Container Group Instance
-          name: kp-name-of-instance
+          name: kptestcontainer
