@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: PS test
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+  
+      - name: Installing CLI-beta for OIDC 
+        run: |
+           CWD="$(pwd)"  
+           python3 -m venv oidc-venv
+           . oidc-venv/bin/activate
+           echo "activated environment" 
+           python3 -m pip install -q --upgrade pip
+           echo "started installing cli beta" 
+           pip install -q --extra-index-url https://azcliprod.blob.core.windows.net/beta/simple/ azure-cli 
+           echo "***************installed cli beta*******************" 
+           echo "$CWD/oidc-venv/bin" >> $GITHUB_PATH
+           
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+          enable-AzPSSession: true 
+
+      - name: Run Azure PowerShell script
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            Get-AzVM -ResourceGroupName "kptestrg249"
+          azPSVersion: "latest"
